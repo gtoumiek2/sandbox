@@ -1,0 +1,44 @@
+tags: TDM
+stages:
+  Get Field's Values:
+    actors:
+      Get Reserve Max Days For Tester:
+        parent: FabricSetRead
+        in:
+          interface:
+            default: false
+          key:
+            const: MAX_RESERVATION_DAYS_FOR_TESTER
+            default: false
+        out:
+          result:
+            schema: integer
+  Calculate Retention:
+    dependsOn: Get Field's Values
+    actors:
+      Admin Or Owner?:
+        parent: NotEquals
+        condition: result
+        in:
+          a:
+            link: Get Reserve Max Days For Tester/result
+            schema: integer
+          b:
+            const: 0
+            schema: integer
+      Update Reserve Table For Admin/Onwer:
+        parent: InnerFlow
+        in:
+          flowName:
+            const: UpdateReserveEntitiesTableForAdminOnwer
+    split: '--------------------'
+  Tester:
+    else: true
+    transactional: false
+    dependsOn: Get Field's Values
+    actors:
+      Update Reserve Table For Tester:
+        parent: InnerFlow
+        in:
+          flowName:
+            const: UpdateReserveEntitiesTableForTester

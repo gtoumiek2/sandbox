@@ -1,0 +1,241 @@
+stages:
+  Input:
+    actors:
+      PopulationArgs:
+        parent: PopulationArgs
+        readonly: true
+        in:
+          ref_instance_id:
+            external: ref_instance_id
+            schema: any
+            mandatory: false
+        out:
+          parent_rows:
+            schema: '#ref'
+      SyncDeleteMode:
+        parent: SyncDeleteMode
+        in:
+          interface:
+            schema: any
+          table:
+            const: null
+            external: table
+  Get Table's Info:
+    actors:
+      Get Table Details:
+        parent: InnerFlow
+        in:
+          flowName:
+            const: GetTableLevelDetails
+          ref_instance_id:
+            link: PopulationArgs/iid
+            schema: string
+            mandatory: false
+          taskExeId:
+            schema: integer
+            mandatory: false
+        out:
+          result:
+            schema: '#ref'
+  LU Table:
+    transactional: false
+    actors:
+      Populate Root Table Error Handler:
+        parent: ErrorHandler
+        error: result
+      TDM_REF_ROOT:
+        parent: DbLoad
+        in:
+          interface:
+            const: fabric
+          schema:
+            const: null
+            external: schema
+          table:
+            const: null
+            external: table
+          fields:
+            const:
+            - ref_instance_id
+            - ref_table_id
+            - ref_table_name
+            - source_env
+            - task_execution_id
+            - task_id
+            - retention
+            - interface_name
+            - schema_name
+            - filter_type
+            - table_filter
+            - target_interface
+            - target_schema
+            - target_table_name
+            - gui_filter
+          dialect:
+            const: sqlite
+          ref_instance_id:
+            link: PopulationArgs/iid
+            schema: string
+          ref_table_id:
+            schema: any
+          ref_table_name:
+            schema: any
+          source_env:
+            schema: any
+          task_execution_id:
+            schema: any
+          task_id:
+            schema: any
+          retention:
+            schema: any
+            mandatory: false
+          interface_name:
+            schema: any
+            mandatory: false
+          schema_name:
+            schema: any
+            mandatory: false
+          filter_type:
+            schema: any
+            mandatory: false
+          table_filter:
+            schema: any
+            mandatory: false
+          target_interface:
+            schema: any
+            mandatory: false
+          target_schema:
+            schema: any
+            mandatory: false
+          target_table_name:
+            schema: any
+            mandatory: false
+          gui_filter:
+            schema: any
+            mandatory: false
+          params:
+            link: Get Table Details/result
+  Populater Table in Sqlite:
+    transactional: false
+    actors:
+      populate Table in Sqlite Error Handler:
+        parent: ErrorHandler
+        error: result
+      Run Table Extract:
+        parent: InnerFlow
+        in:
+          flowName:
+            const: RunTableExtract
+          sourceInterface:
+            link: Get Table Details/result/interface_name
+            schema: string
+            mandatory: false
+          sourceSchema:
+            link: Get Table Details/result/schema_name
+            schema: string
+            mandatory: false
+          tableName:
+            link: Get Table Details/result/ref_table_name
+            schema: string
+            mandatory: false
+          tableFilter:
+            link: Get Table Details/result/table_filter
+            schema: string
+            mandatory: false
+          taskExeId:
+            link: Get Table Details/result/task_execution_id
+            schema: integer
+            mandatory: false
+          tableId:
+            link: Get Table Details/result/ref_table_id
+            schema: integer
+            mandatory: false
+          filterParameters:
+            link: Get Table Details/result/filter_parameters
+            schema: string
+            mandatory: false
+          taskAction:
+            link: Get Table Details/result/task_type
+            schema: string
+            mandatory: false
+          filterParametersInfo:
+            link: Get Table Details/result/filter_fields
+            schema: string
+            mandatory: false
+          filterGUI:
+            link: Get Table Details/result/gui_filter
+            schema: any
+            mandatory: false
+      End Indicator:
+        parent: Const
+        in:
+          value:
+            const: The pop is DONE
+            schema: string
+        out:
+          value:
+            schema: string
+schemas:
+  PopulationArgs.out.parent_rows:
+    type: array
+    items:
+      type: object
+      properties:
+        ref_table_name:
+          type: string
+  Get Table Details.out.result:
+    type: object
+    properties:
+      lu_name:
+        type: string
+      ref_table_id:
+        type: integer
+      ref_table_name:
+        type: string
+      source_env:
+        type: string
+      task_type:
+        type: string
+      selection_method:
+        type: string
+      interface_name:
+        type: string
+      schema_name:
+        type: string
+      task_execution_id:
+        type: integer
+      task_id:
+        type: integer
+      filter_type:
+        type: string
+      table_filter:
+        type: string
+      gui_filter:
+        type: string
+      filter_parameters:
+        type: string
+      filter_fields:
+        type: array
+        items:
+          type: object
+          properties:
+            field_name:
+              type: string
+            field_type:
+              type: string
+            field_value:
+              type: string
+      retention_period_type:
+        type: string
+      retention_period_value:
+        type: integer
+      target_interface:
+        type: string
+      target_schema:
+        type: string
+      target_table_name:
+        type: string
+      number_of_records_to_process:
+        type: integer
+      retention:
+        type: integer

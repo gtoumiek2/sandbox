@@ -1,0 +1,46 @@
+{
+  "Rules" : [ {
+    "name" : "Baseline",
+    "connectToSource" : true,
+    "sampleSize" : {
+      "percentage" : 10,
+      "min" : 100,
+      "max" : 500
+    },
+    "globalSchemaExclude" : [ "SYS.*", ".*SYS$", "USER.*", ".*USER$" ],
+    "override" : true,
+    "pluginsOverride" : {
+      "Metadata File Analyzer" : {
+        "name" : "Metadata File Analyzer",
+        "active" : true,
+        "ordinalPosition" : 9,
+        "threshold" : 0.4,
+        "class" : "com.k2view.discovery.plugins.MetadataFileAnalyzerPlugin",
+        "inputParameters" : {
+          "file_path" : "/opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/field_info.csv"
+        }
+      }
+    }
+  }, {
+    "name" : "Rule1",
+    "enabled" : true,
+    "dataPlatform" : "GTX",
+    "connectToSource" : false,
+    "override" : true,
+    "pluginsOverride" : {
+      "Complex Field Parser" : {
+        "active" : false
+      },
+      "Data Regex Classifier" : {
+        "active" : false
+      },
+      "Metadata Regex Classifier" : {
+        "active" : false
+      },
+      "Classification PII Marker" : {
+        "active" : false
+      },
+      "Metadata File Analyzer" : { }
+    }
+  } ]
+}

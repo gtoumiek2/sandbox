@@ -1,5 +1,758 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FabEnvironmentsManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Environments</Name>
-  <EnvironmentsList />
+  <EnvironmentsList>
+    <Environment enabled="true" name="Prod">
+      <Comments></Comments>
+      <DbInterfacesList>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="AI_DB" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme></dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:postgresql://:5432/?stringtype&#x3D;unspecified</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="CRM_DB" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort></dbPort>
+          <dbScheme>/opt/apps/fabric/workspace/project/project-resources/crm_db.db</dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:sqlite:/opt/apps/fabric/workspace/project/project-resources/crm_db.db</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>SQLite</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="POSTGRESQL_ADMIN" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme>postgres</dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:postgresql://:5432/postgres?stringtype&#x3D;unspecified</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TDM" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme>TDMDB</dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:postgresql://:5432/TDMDB?stringtype&#x3D;unspecified</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+      </DbInterfacesList>
+      <GlobalsList>
+        <Global name="AI_DB_INTERFACE" luName="">
+          <Value>AI_DB</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="AI_ENVIRONMENT" luName="">
+          <Value>AI</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="BE_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="BUILD_TDMDB" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="clone_id" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="COMBO_MAX_COUNT" luName="">
+          <Value>100</Value>
+          <Comment>Maximum values of combo box input object</Comment>
+        </Global>
+        <Global name="CREATE_AI_K2SYSTEM_DB" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="CREATE_PHYSICAL_FK_IN_MDB_EXPORT_SCHEMA" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="DEVELOPMENT_PRODUCT_VERSION" luName="">
+          <Value>DEV</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="enable_masking" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="enable_sequences" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="EXTRACT_MASKING_FLAG" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="GET_RESERVED_ENTITIES_LIMIT" luName="">
+          <Value>0</Value>
+          <Comment>The max number of retrieved entities from TDM_RESERVED_ENTITIES, if set to zero then no limit</Comment>
+        </Global>
+        <Global name="LOAD_MASKING_FLAG" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="MASKING_CACHE_TTL" luName="">
+          <Value>2592000</Value>
+          <Comment>The TTL for masking cache</Comment>
+        </Global>
+        <Global name="MAX_NUMBER_OF_ENTITIES_IN_LIST" luName="">
+          <Value>100</Value>
+          <Comment>The maximum number of entities to be returned to be displayed in list of entities</Comment>
+        </Global>
+        <Global name="POP_FULL_LU_HIERARCHY_IN_TDM_LU" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="PRODUCTION_PRODUCT_VERSION" luName="">
+          <Value>PROD</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="REPLACE_SEQ_BY_LUI_SYNC" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="RESERVE_RETENTION_PERIOD_TYPE" luName="">
+          <Value>Days</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="RESERVE_RETENTION_PERIOD_VALUE" luName="">
+          <Value>10</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SEQ_CACHE_INTERFACE" luName="">
+          <Value>POSTGRESQL_ADMIN</Value>
+          <Comment>The interface to be used for storing the cache of Masking</Comment>
+        </Global>
+        <Global name="SEQ_DO_TRUNCATE" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SEQ_DROP_KEYSPACE" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SYNTHETIC_ENVIRONMENT" luName="">
+          <Value>Synthetic</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TASK_TYPE" luName="">
+          <Value>EXTRACT</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_BATCH_LIMIT" luName="">
+          <Value>-1</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_CLONING_DATA" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_DATAFLUX_TASK" luName="">
+          <Value>false</Value>
+          <Comment>Indicator to mark the task as dataflux or not</Comment>
+        </Global>
+        <Global name="TDM_DELETE_BEFORE_LOAD" luName="">
+          <Value>false</Value>
+          <Comment>Indicator to delete the instance to target DB</Comment>
+        </Global>
+        <Global name="TDM_DELETE_ONLY_TASK" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_DELETE_TABLES_PREFIX" luName="">
+          <Value>TAR_</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_INSERT_TO_TARGET" luName="">
+          <Value>false</Value>
+          <Comment>Indicator to insert the instance to target DB</Comment>
+        </Global>
+        <Global name="TDM_LU_RETENTION_PERIOD_TYPE" luName="">
+          <Value>Days</Value>
+          <Comment>Each Instance can have a TTL, this global holds the type of the TTL and it can have one of the following values:Minutes, Hours, Days, Weeks, or Years</Comment>
+        </Global>
+        <Global name="TDM_LU_RETENTION_PERIOD_VALUE" luName="">
+          <Value>10</Value>
+          <Comment>The value of the TTL based on the type defined in TDM_LU_RETENTION_PERIOD_TYPE. Populate this global with zero or empty value to avoid setting a TTL on the TDM LUIs.</Comment>
+        </Global>
+        <Global name="TDM_PARAMETERS_SEPARATOR" luName="">
+          <Value>&lt;#&gt;</Value>
+          <Comment>The separator to be used for parsing the values of Parameters</Comment>
+        </Global>
+        <Global name="TDM_POPULATE_JMX_STATS" luName="">
+          <Value>false</Value>
+          <Comment>Indicates whether to run add TDM statitics</Comment>
+        </Global>
+        <Global name="TDM_REF_UPD_SIZE" luName="">
+          <Value>1000</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_REPLACE_SEQUENCES" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_RESERVE_IND" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SEQ_REPORT" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SOURCE_ENVIRONMENT_NAME" luName="">
+          <Value>Production</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SOURCE_PRODUCT_VERSION" luName="">
+          <Value>false</Value>
+          <Comment>Source product version to override by task execution process</Comment>
+        </Global>
+        <Global name="TDM_SUMMARY_REPORT_LIMIT" luName="">
+          <Value>10000</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SUPPRESS_TEST_CONNECTION" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SYNC_SOURCE_DATA" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_TAR_ENV_NAME" luName="">
+          <Value>UAT</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_TARGET_PRODUCT_VERSION" luName="">
+          <Value>false</Value>
+          <Comment>Target product version to override by task execution process</Comment>
+        </Global>
+        <Global name="TDM_TASK_EXE_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_TASK_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_USING_CATALOG_SEQUENCES" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_VERSION_TASK_EXECUTION_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDMDB_SCHEMA" luName="">
+          <Value>public</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="UPDATE_MDB_EXPORTED_SCHEMA" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="USER_FABRIC_ROLES" luName="">
+          <Value>admin</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="USER_NAME" luName="">
+          <Value>admin</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="USER_PERMISSION_GROUP" luName="">
+          <Value>admin</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="ROOT_COLUMN_NAME" luName="TDM_LIBRARY">
+          <Value></Value>
+          <Comment>The column name of the entity id. The name and the order of the root column name must be aligned with root_table_name. For example- if you populate two tables in root_Table_name (separated by a comma), you must populate also two values in this global where the first column referes to the first table name the second column refers to the second table name</Comment>
+        </Global>
+        <Global name="ROOT_TABLE_NAME" luName="TDM_LIBRARY">
+          <Value></Value>
+          <Comment>The name of the main source LU table or tables. You can populate several tables separated by a comma.</Comment>
+        </Global>
+        <Global name="TABLE_LEVEL_SEPARATOR" luName="TDM_TableLevel">
+          <Value>|</Value>
+          <Comment></Comment>
+        </Global>
+      </GlobalsList>
+      <GenericInterfacesList>
+        <GenericInterface type="CUSTOM" enabled="true" version="">
+          <Name>AI_DB_External</Name>
+          <Properties>
+            <Property name="Host">
+              <Value>local</Value>
+            </Property>
+            <Property name="Port">
+              <Value>5432</Value>
+            </Property>
+            <Property name="User">
+              <Value></Value>
+            </Property>
+            <Property name="Password">
+              <Value></Value>
+            </Property>
+            <Property name="Data">
+              <Value></Value>
+            </Property>
+            <Property name="ioprovider">
+              <Value></Value>
+            </Property>
+            <Property name="TechType">
+              <Value></Value>
+            </Property>
+          </Properties>
+        </GenericInterface>
+        <GenericInterface type="HTTP" enabled="false" version="">
+          <Name>AI_Execution</Name>
+          <Properties>
+            <Property name="ProtocolType">
+              <Value>HTTPS</Value>
+            </Property>
+            <Property name="HOST">
+              <Value>local</Value>
+            </Property>
+            <Property name="PORT">
+              <Value>443</Value>
+            </Property>
+            <Property name="Path">
+              <Value></Value>
+            </Property>
+            <Property name="AuthenticationType">
+              <Value>Bearer</Value>
+            </Property>
+            <Property name="User">
+              <Value></Value>
+            </Property>
+            <Property name="Password">
+              <Value></Value>
+            </Property>
+            <Property name="Token">
+              <Value></Value>
+            </Property>
+            <Property name="AccessTokenUrl">
+              <Value></Value>
+            </Property>
+            <Property name="AccessTokenBodyParams">
+              <Value></Value>
+            </Property>
+            <Property name="ClientId">
+              <Value></Value>
+            </Property>
+            <Property name="ClientSecret">
+              <Value></Value>
+            </Property>
+            <Property name="Scope">
+              <Value></Value>
+            </Property>
+            <Property name="TokenTimeout">
+              <Value>0</Value>
+            </Property>
+            <Property name="TestConnectionValidStatus">
+              <Value></Value>
+            </Property>
+            <Property name="Certificate">
+              <Value></Value>
+            </Property>
+          </Properties>
+        </GenericInterface>
+      </GenericInterfacesList>
+    </Environment>
+    <Environment enabled="true" name="dev">
+      <Comments></Comments>
+      <DbInterfacesList>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="AI_DB" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme></dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:postgresql://:5432/?stringtype&#x3D;unspecified</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="CRM_DB" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort></dbPort>
+          <dbScheme>/opt/apps/fabric/workspace/project/project-resources/crm_db.db</dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:sqlite:/opt/apps/fabric/workspace/project/project-resources/crm_db.db</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>SQLite</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="POSTGRESQL_ADMIN" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme>postgres</dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:postgresql://:5432/postgres?stringtype&#x3D;unspecified</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TDM" dbType="genericdb" active="true">
+          <dbHost></dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme>TDMDB</dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:postgresql://:5432/TDMDB?stringtype&#x3D;unspecified</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+      </DbInterfacesList>
+      <GlobalsList>
+        <Global name="AI_DB_INTERFACE" luName="">
+          <Value>AI_DB</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="AI_ENVIRONMENT" luName="">
+          <Value>AI</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="BE_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="BUILD_TDMDB" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="clone_id" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="COMBO_MAX_COUNT" luName="">
+          <Value>100</Value>
+          <Comment>Maximum values of combo box input object</Comment>
+        </Global>
+        <Global name="CREATE_AI_K2SYSTEM_DB" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="CREATE_PHYSICAL_FK_IN_MDB_EXPORT_SCHEMA" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="DEVELOPMENT_PRODUCT_VERSION" luName="">
+          <Value>DEV</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="enable_masking" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="enable_sequences" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="EXTRACT_MASKING_FLAG" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="GET_RESERVED_ENTITIES_LIMIT" luName="">
+          <Value>0</Value>
+          <Comment>The max number of retrieved entities from TDM_RESERVED_ENTITIES, if set to zero then no limit</Comment>
+        </Global>
+        <Global name="LOAD_MASKING_FLAG" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="MASKING_CACHE_TTL" luName="">
+          <Value>2592000</Value>
+          <Comment>The TTL for masking cache</Comment>
+        </Global>
+        <Global name="MAX_NUMBER_OF_ENTITIES_IN_LIST" luName="">
+          <Value>100</Value>
+          <Comment>The maximum number of entities to be returned to be displayed in list of entities</Comment>
+        </Global>
+        <Global name="POP_FULL_LU_HIERARCHY_IN_TDM_LU" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="PRODUCTION_PRODUCT_VERSION" luName="">
+          <Value>PROD</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="REPLACE_SEQ_BY_LUI_SYNC" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="RESERVE_RETENTION_PERIOD_TYPE" luName="">
+          <Value>Days</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="RESERVE_RETENTION_PERIOD_VALUE" luName="">
+          <Value>10</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SEQ_CACHE_INTERFACE" luName="">
+          <Value>POSTGRESQL_ADMIN</Value>
+          <Comment>The interface to be used for storing the cache of Masking</Comment>
+        </Global>
+        <Global name="SEQ_DO_TRUNCATE" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SEQ_DROP_KEYSPACE" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SYNTHETIC_ENVIRONMENT" luName="">
+          <Value>Synthetic</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TASK_TYPE" luName="">
+          <Value>EXTRACT</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_BATCH_LIMIT" luName="">
+          <Value>-1</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_CLONING_DATA" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_DATAFLUX_TASK" luName="">
+          <Value>false</Value>
+          <Comment>Indicator to mark the task as dataflux or not</Comment>
+        </Global>
+        <Global name="TDM_DELETE_BEFORE_LOAD" luName="">
+          <Value>false</Value>
+          <Comment>Indicator to delete the instance to target DB</Comment>
+        </Global>
+        <Global name="TDM_DELETE_ONLY_TASK" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_DELETE_TABLES_PREFIX" luName="">
+          <Value>TAR_</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_INSERT_TO_TARGET" luName="">
+          <Value>false</Value>
+          <Comment>Indicator to insert the instance to target DB</Comment>
+        </Global>
+        <Global name="TDM_LU_RETENTION_PERIOD_TYPE" luName="">
+          <Value>Days</Value>
+          <Comment>Each Instance can have a TTL, this global holds the type of the TTL and it can have one of the following values:Minutes, Hours, Days, Weeks, or Years</Comment>
+        </Global>
+        <Global name="TDM_LU_RETENTION_PERIOD_VALUE" luName="">
+          <Value>10</Value>
+          <Comment>The value of the TTL based on the type defined in TDM_LU_RETENTION_PERIOD_TYPE. Populate this global with zero or empty value to avoid setting a TTL on the TDM LUIs.</Comment>
+        </Global>
+        <Global name="TDM_PARAMETERS_SEPARATOR" luName="">
+          <Value>&lt;#&gt;</Value>
+          <Comment>The separator to be used for parsing the values of Parameters</Comment>
+        </Global>
+        <Global name="TDM_POPULATE_JMX_STATS" luName="">
+          <Value>false</Value>
+          <Comment>Indicates whether to run add TDM statitics</Comment>
+        </Global>
+        <Global name="TDM_REF_UPD_SIZE" luName="">
+          <Value>1000</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_REPLACE_SEQUENCES" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_RESERVE_IND" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SEQ_REPORT" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SOURCE_ENVIRONMENT_NAME" luName="">
+          <Value>Production</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SOURCE_PRODUCT_VERSION" luName="">
+          <Value>false</Value>
+          <Comment>Source product version to override by task execution process</Comment>
+        </Global>
+        <Global name="TDM_SUMMARY_REPORT_LIMIT" luName="">
+          <Value>10000</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SUPPRESS_TEST_CONNECTION" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_SYNC_SOURCE_DATA" luName="">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_TAR_ENV_NAME" luName="">
+          <Value>UAT</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_TARGET_PRODUCT_VERSION" luName="">
+          <Value>false</Value>
+          <Comment>Target product version to override by task execution process</Comment>
+        </Global>
+        <Global name="TDM_TASK_EXE_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_TASK_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_USING_CATALOG_SEQUENCES" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_VERSION_TASK_EXECUTION_ID" luName="">
+          <Value>0</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDMDB_SCHEMA" luName="">
+          <Value>public</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="UPDATE_MDB_EXPORTED_SCHEMA" luName="">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="USER_FABRIC_ROLES" luName="">
+          <Value>admin</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="USER_NAME" luName="">
+          <Value>admin</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="USER_PERMISSION_GROUP" luName="">
+          <Value>admin</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="ROOT_COLUMN_NAME" luName="TDM_LIBRARY">
+          <Value></Value>
+          <Comment>The column name of the entity id. The name and the order of the root column name must be aligned with root_table_name. For example- if you populate two tables in root_Table_name (separated by a comma), you must populate also two values in this global where the first column referes to the first table name the second column refers to the second table name</Comment>
+        </Global>
+        <Global name="ROOT_TABLE_NAME" luName="TDM_LIBRARY">
+          <Value></Value>
+          <Comment>The name of the main source LU table or tables. You can populate several tables separated by a comma.</Comment>
+        </Global>
+        <Global name="TABLE_LEVEL_SEPARATOR" luName="TDM_TableLevel">
+          <Value>|</Value>
+          <Comment></Comment>
+        </Global>
+      </GlobalsList>
+      <GenericInterfacesList>
+        <GenericInterface type="CUSTOM" enabled="true" version="">
+          <Name>AI_DB_External</Name>
+          <Properties>
+            <Property name="Host">
+              <Value>local</Value>
+            </Property>
+            <Property name="Port">
+              <Value>5432</Value>
+            </Property>
+            <Property name="User">
+              <Value></Value>
+            </Property>
+            <Property name="Password">
+              <Value></Value>
+            </Property>
+            <Property name="Data">
+              <Value></Value>
+            </Property>
+            <Property name="ioprovider">
+              <Value></Value>
+            </Property>
+            <Property name="TechType">
+              <Value></Value>
+            </Property>
+          </Properties>
+        </GenericInterface>
+        <GenericInterface type="HTTP" enabled="false" version="">
+          <Name>AI_Execution</Name>
+          <Properties>
+            <Property name="ProtocolType">
+              <Value>HTTPS</Value>
+            </Property>
+            <Property name="HOST">
+              <Value>local</Value>
+            </Property>
+            <Property name="PORT">
+              <Value>443</Value>
+            </Property>
+            <Property name="Path">
+              <Value></Value>
+            </Property>
+            <Property name="AuthenticationType">
+              <Value>Bearer</Value>
+            </Property>
+            <Property name="User">
+              <Value></Value>
+            </Property>
+            <Property name="Password">
+              <Value></Value>
+            </Property>
+            <Property name="Token">
+              <Value></Value>
+            </Property>
+            <Property name="AccessTokenUrl">
+              <Value></Value>
+            </Property>
+            <Property name="AccessTokenBodyParams">
+              <Value></Value>
+            </Property>
+            <Property name="ClientId">
+              <Value></Value>
+            </Property>
+            <Property name="ClientSecret">
+              <Value></Value>
+            </Property>
+            <Property name="Scope">
+              <Value></Value>
+            </Property>
+            <Property name="TokenTimeout">
+              <Value>0</Value>
+            </Property>
+            <Property name="TestConnectionValidStatus">
+              <Value></Value>
+            </Property>
+            <Property name="Certificate">
+              <Value></Value>
+            </Property>
+          </Properties>
+        </GenericInterface>
+      </GenericInterfacesList>
+    </Environment>
+  </EnvironmentsList>
 </FabEnvironmentsManager>
