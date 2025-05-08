@@ -1,3 +1,474 @@
 stages:
+  Read:
+    actors:
+      Read Sequences:
+        parent: FileRead
+        in:
+          interface:
+            const: file://
+          path:
+            const: /opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/catalog_classification_generators.csv
+      Read Catalog:
+        parent: FileRead
+        in:
+          interface:
+            const: file://
+          path:
+            const: /opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/catalog_field_info.csv
+      Read Field Info:
+        parent: FileRead
+        in:
+          interface:
+            const: file://
+          path:
+            const: /opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/field_info.csv
+  Parse:
+    actors:
+      Parse Sequences:
+        parent: CsvParser
+        in:
+          stream:
+            link: Read Sequences/stream
+        out:
+          object:
+            schema: '#ref'
+      Parse Field Info:
+        parent: CsvParser
+        in:
+          stream:
+            link: Read Field Info/stream
+        out:
+          object:
+            schema: '#ref'
+  Filter:
+    actors:
+      Filter Sequences:
+        parent: Filter
+        in:
+          script:
+            const: value.category == "enable_sequences"
+          values:
+            link: Parse Sequences/object
+        out:
+          values:
+            schema: '#ref'
+      Parse catalog:
+        parent: CsvParser
+        in:
+          stream:
+            link: Read Catalog/stream
+        out:
+          object:
+            schema: '#ref'
+  Stage 7:
+    actors:
+      sequence Clone:
+        parent: DeepCopy
+        in:
+          value:
+            link: Filter Sequences/values
+        out:
+          value:
+            schema: '#ref'
+      catalog Clone:
+        parent: DeepCopy
+        in:
+          value:
+            link: Parse catalog/object
+        out:
+          value:
+            schema: '#ref'
   Stage 1:
-    last: 0
+    actors:
+      sequence passthrough:
+        parent: Const
+        in:
+          value:
+            const: null
+            link: sequence Clone/value
+      catalog passthrough:
+        parent: Const
+        in:
+          value:
+            const: null
+            link:
+              path: catalog Clone/value
+              iterate: Iterate
+  Stage 2:
+    actors:
+      Sequence Row:
+        parent: Const
+        in:
+          value:
+            const: null
+            link:
+              path: sequence passthrough/value
+              iterate: Iterate
+        out:
+          value:
+            schema: '#ref'
+  Stage 3:
+    last: 1
+    dependsOn: Stage 2
+    actors:
+      JavaScript2:
+        parent: JavaScript
+        condition: result
+        in:
+          script:
+            const: |
+              ""+seq.classification == ""+cat.field
+          seq:
+            link: Sequence Row/value
+            schema: '#ref'
+            mandatory: false
+          cat:
+            link: catalog passthrough/value
+            schema: '#ref'
+            mandatory: false
+        out:
+          result:
+            schema: boolean
+      ArrayBuilder1:
+        parent: ArrayBuilder
+        in:
+          input:
+            link: catalog passthrough/value
+    split: '--------------------'
+  Stage 5:
+    last: 1
+    else: true
+    dependsOn: Stage 2
+  Stage 4:
+    last: 1
+  Stage 6:
+    actors:
+      Const1:
+        parent: Const
+        in:
+          value:
+            const: null
+            link: ArrayBuilder1/array
+        out:
+          value:
+            external: result
+schemas:
+  Parse Sequences.out.object:
+    type: array
+    items:
+      type: object
+      properties:
+        classification:
+          type: string
+        generator:
+          type: string
+        params:
+          type: string
+        consistent:
+          type: string
+        unique:
+          type: string
+        seed:
+          type: string
+        useEnvironment:
+          type: string
+        useExecutionId:
+          type: string
+        useInstanceId:
+          type: string
+        onEmpty:
+          type: string
+        formatterName:
+          type: string
+        formatterParams:
+          type: string
+        category:
+          type: string
+        preExecution:
+          type: string
+        preExecutionParams:
+          type: string
+  Parse Field Info.out.object:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        nullPercentage:
+          type: string
+        refersTo:
+          type: string
+        sequenceName:
+          type: string
+        V5:
+          type: string
+  Filter Sequences.out.values:
+    type: array
+    items:
+      type: object
+      properties:
+        classification:
+          type: string
+        generator:
+          type: string
+        params:
+          type: string
+        consistent:
+          type: string
+        unique:
+          type: string
+        seed:
+          type: string
+        useEnvironment:
+          type: string
+        useExecutionId:
+          type: string
+        useInstanceId:
+          type: string
+        onEmpty:
+          type: string
+        formatterName:
+          type: string
+        formatterParams:
+          type: string
+        category:
+          type: string
+        preExecution:
+          type: string
+        preExecutionParams:
+          type: string
+  Parse catalog.out.object:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        sequenceName:
+          type: string
+        V2:
+          type: string
+  sequence Clone.out.value:
+    type: array
+    items:
+      type: object
+      properties:
+        classification:
+          type: string
+        generator:
+          type: string
+        params:
+          type: string
+        consistent:
+          type: string
+        unique:
+          type: string
+        seed:
+          type: string
+        useEnvironment:
+          type: string
+        useExecutionId:
+          type: string
+        useInstanceId:
+          type: string
+        onEmpty:
+          type: string
+        formatterName:
+          type: string
+        formatterParams:
+          type: string
+        category:
+          type: string
+        preExecution:
+          type: string
+        preExecutionParams:
+          type: string
+  catalog Clone.out.value:
+    type: object
+    properties:
+      schema:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      dataPlatform:
+        type: string
+      ordinalPosition:
+        type: string
+      classification:
+        type: string
+      sequenceName:
+        type: string
+      pii:
+        type: string
+      field:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      V2:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+  Sequence Row.out.value:
+    type: object
+    properties:
+      classification:
+        type: string
+      generator:
+        type: string
+      params:
+        type: string
+      consistent:
+        type: string
+      unique:
+        type: string
+      seed:
+        type: string
+      useEnvironment:
+        type: string
+      useExecutionId:
+        type: string
+      useInstanceId:
+        type: string
+      onEmpty:
+        type: string
+      formatterName:
+        type: string
+      formatterParams:
+        type: string
+      category:
+        type: string
+      preExecution:
+        type: string
+      preExecutionParams:
+        type: string
+  JavaScript2.in.seq:
+    type: object
+    properties:
+      classification:
+        type: string
+      generator:
+        type: string
+      params:
+        type: string
+      consistent:
+        type: string
+      unique:
+        type: string
+      seed:
+        type: string
+      useEnvironment:
+        type: string
+      useExecutionId:
+        type: string
+      useInstanceId:
+        type: string
+      onEmpty:
+        type: string
+      formatterName:
+        type: string
+      formatterParams:
+        type: string
+      category:
+        type: string
+      preExecution:
+        type: string
+      preExecutionParams:
+        type: string
+  JavaScript2.in.cat:
+    type: object
+    properties:
+      dataPlatform:
+        type: string
+      schema:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+      field:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      ordinalPosition:
+        type: string
+      pii:
+        type: string
+      classification:
+        type: string
+      sequenceName:
+        type: string
+      V2:
+        type: string
