@@ -1,3 +1,342 @@
 stages:
+  Read File:
+    actors:
+      Read Catalog:
+        parent: FileRead
+        in:
+          interface:
+            const: file://
+          path:
+            const: /opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/catalog_field_info.csv
+      Read Sequences:
+        parent: FileRead
+        in:
+          interface:
+            const: file://
+          path:
+            const: /opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/catalog_classification_generators.csv
+  Parse CSV:
+    actors:
+      CsvParser1:
+        parent: CsvParser
+        in:
+          stream:
+            link: Read Catalog/stream
+        out:
+          object:
+            schema: '#ref'
+      Stringify:
+        parent: ToString
+        in:
+          value:
+            link: Read Sequences/stream
+  Filter:
+    actors:
+      Filter SEQ:
+        parent: Filter
+        in:
+          script:
+            const: value.field.endsWith("_SEQ")
+          values:
+            link: CsvParser1/object
+        out:
+          values:
+            schema: '#ref'
+  Loop init:
+    actors:
+      Row Passthrough:
+        parent: Const
+        in:
+          value:
+            const: null
+            link:
+              path: Filter SEQ/values
+              iterate: Iterate
+        out:
+          value:
+            schema: '#ref'
+  Build Row:
+    actors:
+      Build CSV Row:
+        parent: StringFormat
+        in:
+          format:
+            const: '"${sequenceName}","Sequence.actor","{""sequenceId"":""${sequenceName}"",""sequenceInterface"":""${interfaceName}"",""sequenceSchema"":""${schemaName}"",""initialValue"":""1"",""increment"":1,""category"":""enable_sequences""}",true,false,false,true,true,true,"MASK_NO_CACHE","","{}","enable_sequences","","{}"'
+          sequenceName:
+            link: Row Passthrough/value/field
+            schema: string
+            mandatory: false
+          interfaceName:
+            link: Row Passthrough/value/dataPlatform
+            schema: string
+            mandatory: false
+          schemaName:
+            link: Row Passthrough/value/schema
+            schema: string
+            mandatory: false
+  Build Array of new Sequences:
+    last: 1
+    actors:
+      Check that the row doesn't exist in the file:
+        parent: JavaScript
+        condition: result
+        in:
+          script:
+            const: allRows.indexOf(newRow) < 0
+          newRow:
+            link: Build CSV Row/string
+            schema: string
+            mandatory: false
+          allRows:
+            link: Stringify/string
+            schema: string
+            mandatory: false
+        out:
+          result:
+            schema: boolean
+      Append to Array:
+        parent: ArrayBuilder
+        in:
+          input:
+            link: Build CSV Row/string
+        out:
+          array:
+            schema: '#ref'
+  Passthrough new array:
+    actors:
+      New Array:
+        parent: Const
+        in:
+          value:
+            const: null
+            link: Append to Array/array
+        out:
+          value:
+            schema: '#ref'
+  Handle Duplicates:
+    actors:
+      script to handle duplicates:
+        parent: JavaScript
+        in:
+          script:
+            const:
+              userCode: |
+                var res = []
+                if(newArray != null){
+                    newArray.forEach(v => {
+                        print(v)
+                        if (res.indexOf(v)<0){
+                            res.push(v)
+                        }
+                    })
+                }
+                res
+              script: |-
+                var res = [];
+
+                if (newArray != null) {
+                  newArray.forEach(function (v) {
+                    print(v);
+
+                    if (res.indexOf(v) < 0) {
+                      res.push(v);
+                    }
+                  });
+                }
+
+                res;
+          newArray:
+            link: New Array/value
+            schema: '#ref'
+            mandatory: false
+        out:
+          result:
+            schema: '#ref'
+  Prep new Lines:
+    actors:
+      convert new Array to CSV Lines:
+        parent: StringBuild
+        in:
+          delimiter:
+            const: |2+
+
+          input:
+            link: script to handle duplicates/result
+  Merge with sequences file:
+    dependsOn: Prep new Lines
+    actors:
+      NotEquals1:
+        parent: NotEquals
+        condition: result
+        in:
+          b:
+            const: ''
+            schema: string
+          a:
+            link: convert new Array to CSV Lines/string
+      Combine:
+        parent: StringBuild
+        in:
+          delimiter:
+            const: |2+
+
+          input:
+            link:
+            - path: Stringify/string
+              pos: 0
+            - path: convert new Array to CSV Lines/string
+              pos: 1
+    split: '--------------------'
   Stage 1:
-    last: 0
+    else: true
+    dependsOn: Prep new Lines
+  Write output files:
+    dependsOn: Merge with sequences file
+    actors:
+      Write new File:
+        parent: FileWrite
+        in:
+          interface:
+            const: file://
+          path:
+            const: /opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/catalog_classification_generators.csv
+          stream:
+            link: Combine/string
+      Write Backup:
+        parent: FileWrite
+        in:
+          interface:
+            const: file://
+          path:
+            const: /opt/apps/fabric/workspace/project/Implementation/SharedObjects/Interfaces/Discovery/Mtable/catalog_classification_generators.csv.backup
+          stream:
+            link: Stringify/string
+    split: '--------------------'
+  Stage 2:
+    dependsOn: Stage 1
+schemas:
+  CsvParser1.out.object:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        sequenceName:
+          type: string
+        V2:
+          type: string
+  Filter SEQ.out.values:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        sequenceName:
+          type: string
+        V2:
+          type: string
+  Row Passthrough.out.value:
+    type: object
+    properties:
+      dataPlatform:
+        type: string
+      schema:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+      field:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      ordinalPosition:
+        type: string
+      pii:
+        type: string
+      classification:
+        type: string
+      sequenceName:
+        type: string
+      V2:
+        type: string
+  Append to Array.out.array:
+    type: array
+    items:
+      type: string
+  New Array.out.value:
+    type: array
+    items:
+      type: string
+  script to handle duplicates.in.newArray:
+    type: array
+    items:
+      type: string
+  script to handle duplicates.out.result:
+    type: array
+    items:
+      type: integer
