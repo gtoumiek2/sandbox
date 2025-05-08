@@ -86,6 +86,9 @@ stages:
           value:
             const: null
             link: sequence Clone/value
+        out:
+          value:
+            schema: '#ref'
       catalog passthrough:
         parent: Const
         in:
@@ -94,6 +97,9 @@ stages:
             link:
               path: catalog Clone/value
               iterate: Iterate
+        out:
+          value:
+            schema: '#ref'
   Stage 2:
     actors:
       Sequence Row:
@@ -129,11 +135,14 @@ stages:
         out:
           result:
             schema: boolean
-      ArrayBuilder1:
+      ArrayBuilder:
         parent: ArrayBuilder
         in:
           input:
             link: catalog passthrough/value
+        out:
+          array:
+            schema: '#ref'
     split: '--------------------'
   Stage 5:
     last: 1
@@ -143,15 +152,87 @@ stages:
     last: 1
   Stage 6:
     actors:
-      Const1:
+      Clone matched array:
+        parent: DeepCopy
+        in:
+          value:
+            link: ArrayBuilder/array
+        out:
+          value:
+            schema: '#ref'
+      clone field_info:
+        parent: DeepCopy
+        in:
+          value:
+            link: Parse Field Info/object
+        out:
+          value:
+            schema: '#ref'
+  Stage 8:
+    actors:
+      matched array row:
         parent: Const
         in:
           value:
             const: null
-            link: ArrayBuilder1/array
+            link:
+              path: Clone matched array/value
+              iterate: Iterate
         out:
           value:
-            external: result
+            schema: '#ref'
+      field info passthrough:
+        parent: Const
+        in:
+          value:
+            const: null
+            link: clone field_info/value
+        out:
+          value:
+            schema: '#ref'
+  Stage 9:
+    actors:
+      field info row:
+        parent: Const
+        in:
+          value:
+            const: null
+            link:
+              path: field info passthrough/value
+              iterate: Iterate
+        out:
+          value:
+            schema: '#ref'
+  Stage 10:
+    dependsOn: Stage 9
+    actors:
+      JavaScript1:
+        parent: JavaScript
+        condition: result
+        in:
+          script:
+            const: fiRow.field == maRow.field
+          fiRow:
+            link: field info row/value
+            schema: '#ref'
+            mandatory: false
+          maRow:
+            link: matched array row/value
+            schema: '#ref'
+            mandatory: false
+        out:
+          result:
+            schema: boolean
+    split: '--------------------'
+  Stage 11:
+    else: true
+    dependsOn: Stage 9
+  Stage 12:
+    last: 1
+  Stage 13:
+    last: 1
+  Stage 14: {
+    }
 schemas:
   Parse Sequences.out.object:
     type: array
@@ -371,6 +452,76 @@ schemas:
         type: string
       class:
         type: string
+  sequence passthrough.out.value:
+    type: array
+    items:
+      type: object
+      properties:
+        classification:
+          type: string
+        generator:
+          type: string
+        params:
+          type: string
+        consistent:
+          type: string
+        unique:
+          type: string
+        seed:
+          type: string
+        useEnvironment:
+          type: string
+        useExecutionId:
+          type: string
+        useInstanceId:
+          type: string
+        onEmpty:
+          type: string
+        formatterName:
+          type: string
+        formatterParams:
+          type: string
+        category:
+          type: string
+        preExecution:
+          type: string
+        preExecutionParams:
+          type: string
+  catalog passthrough.out.value:
+    type: object
+    properties:
+      dataPlatform:
+        type: string
+      schema:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+      field:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      ordinalPosition:
+        type: string
+      pii:
+        type: string
+      classification:
+        type: string
+      sequenceName:
+        type: string
+      V2:
+        type: string
   Sequence Row.out.value:
     type: object
     properties:
@@ -438,6 +589,310 @@ schemas:
       preExecutionParams:
         type: string
   JavaScript2.in.cat:
+    type: object
+    properties:
+      dataPlatform:
+        type: string
+      schema:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+      field:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      ordinalPosition:
+        type: string
+      pii:
+        type: string
+      classification:
+        type: string
+      sequenceName:
+        type: string
+      V2:
+        type: string
+  ArrayBuilder.out.array:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        sequenceName:
+          type: string
+        V2:
+          type: string
+  Clone matched array.out.value:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        sequenceName:
+          type: string
+        V2:
+          type: string
+  clone field_info.out.value:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        nullPercentage:
+          type: string
+        refersTo:
+          type: string
+        sequenceName:
+          type: string
+        V5:
+          type: string
+  matched array row.out.value:
+    type: object
+    properties:
+      dataPlatform:
+        type: string
+      schema:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+      field:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      ordinalPosition:
+        type: string
+      pii:
+        type: string
+      classification:
+        type: string
+      sequenceName:
+        type: string
+      V2:
+        type: string
+  field info passthrough.out.value:
+    type: array
+    items:
+      type: object
+      properties:
+        dataPlatform:
+          type: string
+        schema:
+          type: string
+        dataset:
+          type: string
+        class:
+          type: string
+        field:
+          type: string
+        sourceEntityType:
+          type: string
+        sourceDataType:
+          type: string
+        sourceNullable:
+          type: string
+        columnSize:
+          type: string
+        definedBy:
+          type: string
+        pk:
+          type: string
+        ordinalPosition:
+          type: string
+        pii:
+          type: string
+        classification:
+          type: string
+        nullPercentage:
+          type: string
+        refersTo:
+          type: string
+        sequenceName:
+          type: string
+        V5:
+          type: string
+  field info row.out.value:
+    type: object
+    properties:
+      dataPlatform:
+        type: string
+      schema:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+      field:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      ordinalPosition:
+        type: string
+      pii:
+        type: string
+      classification:
+        type: string
+      nullPercentage:
+        type: string
+      refersTo:
+        type: string
+      sequenceName:
+        type: string
+      V5:
+        type: string
+  JavaScript1.in.fiRow:
+    type: object
+    properties:
+      dataPlatform:
+        type: string
+      schema:
+        type: string
+      dataset:
+        type: string
+      class:
+        type: string
+      field:
+        type: string
+      sourceEntityType:
+        type: string
+      sourceDataType:
+        type: string
+      sourceNullable:
+        type: string
+      columnSize:
+        type: string
+      definedBy:
+        type: string
+      pk:
+        type: string
+      ordinalPosition:
+        type: string
+      pii:
+        type: string
+      classification:
+        type: string
+      nullPercentage:
+        type: string
+      refersTo:
+        type: string
+      sequenceName:
+        type: string
+      V5:
+        type: string
+  JavaScript1.in.maRow:
     type: object
     properties:
       dataPlatform:
