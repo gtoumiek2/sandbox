@@ -2,12 +2,13 @@
 <DBConn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="DBConnGenericAdoJdbc" name="POSTGRESQL_ADMIN" type="genericdb" version="8.2.0">
     <JdbcDriverName>PostgreSQL</JdbcDriverName>
     <Active>true</Active>
-    <DataSource>postgres-service</DataSource>
+    <DataSource>host.docker.internal</DataSource>
     <PortNum>5432</PortNum>
     <DataBase>postgres</DataBase>
     <UserId>postgres</UserId>
-    <Password>~encs2~pk5cmcioud2ZOiRGPjojFh/Q3DRlXREIqSu7XujSbYt1oTYHuPUXxA==</Password>
-    <ConnectionStringServerSide>jdbc:postgresql://postgres-service:5432/postgres?stringtype=unspecified</ConnectionStringServerSide>
+    <Password>~encs2~tNr6XuDqyCQetp07sZ9GCkSaFusWUmnKONUoKwLsJK0TAWP6JaTFMQ==</Password>
+    <ConnectionStringServerSide>jdbc:postgresql://host.docker.internal:5432/postgres?stringtype=unspecified</ConnectionStringServerSide>
+    <DataSource>postgres-service</DataSource>
     <MinConnectionsNumber>0</MinConnectionsNumber>
     <MaxConnectionsNumber>60</MaxConnectionsNumber>
     <SchemaFilter></SchemaFilter>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>GRP</Name>
+  <ID>tbl_GRP</ID>
+  <Columns>
+    <Column name="CO_ID" id="CO_ID" index="0" datatype="TEXT" mandatory="true" />
+    <Column name="GROUP_ID" id="GROUP_ID" index="1" datatype="REAL" mandatory="true" />
+    <Column name="GROUP_OFFC_CD" id="GROUP_OFFC_CD" index="2" datatype="TEXT" />
+    <Column name="PROQUOTE_CLIENT_ID" id="PROQUOTE_CLIENT_ID" index="3" datatype="TEXT" />
+    <Column name="LEGAL_NM" id="LEGAL_NM" index="4" datatype="TEXT" />
+    <Column name="GROUP_SHRT_NM" id="GROUP_SHRT_NM" index="5" datatype="TEXT" />
+    <Column name="GROUP_SHRT_NM_MATCH" id="GROUP_SHRT_NM_MATCH" index="6" datatype="REAL" />
+    <Column name="SCTR_CD" id="SCTR_CD" index="7" datatype="TEXT" />
+    <Column name="ORG_TYPE_CD" id="ORG_TYPE_CD" index="8" datatype="TEXT" />
+    <Column name="TAX_ID" id="TAX_ID" index="9" datatype="TEXT" />
+    <Column name="BSNSS_DESCP" id="BSNSS_DESCP" index="10" datatype="TEXT" />
+    <Column name="OTHR_EMPLYR_QTY" id="OTHR_EMPLYR_QTY" index="11" datatype="REAL" />
+    <Column name="OTHR_EMPLYR_NBR_LAST_SEQ" id="OTHR_EMPLYR_NBR_LAST_SEQ" index="12" datatype="REAL" />
+    <Column name="ADDRSS_NBR_LAST_SEQ" id="ADDRSS_NBR_LAST_SEQ" index="13" datatype="REAL" />
+    <Column name="INTL_ADD_DT" id="INTL_ADD_DT" index="14" datatype="DATETIME" />
+    <Column name="INTL_ADD_EE_ID" id="INTL_ADD_EE_ID" index="15" datatype="TEXT" />
+    <Column name="LAST_UPDT_DT" id="LAST_UPDT_DT" index="16" datatype="DATETIME" />
+    <Column name="LAST_UPDT_EE_ID" id="LAST_UPDT_EE_ID" index="17" datatype="TEXT" />
+    <Column name="FLEXINSURE_FLG" id="FLEXINSURE_FLG" index="18" datatype="TEXT" />
+    <Column name="SEND_TO_CRM_FLG" id="SEND_TO_CRM_FLG" index="19" datatype="TEXT" />
+    <Column name="SF_ACCOUNT_ID" id="SF_ACCOUNT_ID" index="20" datatype="TEXT" />
+  </Columns>
+  <IndexesList>
+    <Index id="1" pk="true" unique="true" instanceOnly="true" columnsIdsList="CO_ID,GROUP_ID" />
+  </IndexesList>
+  <EnrichmentList>
+  </EnrichmentList>
+  <LazyDataUpdate syncMethod="Inherited" performEvery="1.00:00:00">
+    <DecisionFunction></DecisionFunction>
+  </LazyDataUpdate>
+  <TriggersList>
+  </TriggersList>
+  <BasedOn>
+    <Source interface="GTX" schema="GRP" table="GRP" timestamp="2025-06-11">
+      <ColumnsList>CO_ID,GROUP_ID,GROUP_OFFC_CD,PROQUOTE_CLIENT_ID,LEGAL_NM,GROUP_SHRT_NM,GROUP_SHRT_NM_MATCH,SCTR_CD,ORG_TYPE_CD,TAX_ID,BSNSS_DESCP,OTHR_EMPLYR_QTY,OTHR_EMPLYR_NBR_LAST_SEQ,ADDRSS_NBR_LAST_SEQ,INTL_ADD_DT,INTL_ADD_EE_ID,LAST_UPDT_DT,LAST_UPDT_EE_ID,FLEXINSURE_FLG,SEND_TO_CRM_FLG,SF_ACCOUNT_ID</ColumnsList>
+    </Source>
+  </BasedOn>
+</TableObject>

@@ -1,0 +1,314 @@
+stages:
+  Input:
+    actors:
+      PopulationArgs:
+        parent: PopulationArgs
+        readonly: true
+        in:
+          CO_ID:
+            external: CO_ID
+            schema: any
+            mandatory: false
+          GROUP_ID:
+            external: GROUP_ID
+            schema: any
+            mandatory: false
+          GROUP_OFFC_CD:
+            external: GROUP_OFFC_CD
+            schema: any
+            mandatory: false
+          PROQUOTE_CLIENT_ID:
+            external: PROQUOTE_CLIENT_ID
+            schema: any
+            mandatory: false
+          LEGAL_NM:
+            external: LEGAL_NM
+            schema: any
+            mandatory: false
+          GROUP_SHRT_NM:
+            external: GROUP_SHRT_NM
+            schema: any
+            mandatory: false
+          GROUP_SHRT_NM_MATCH:
+            external: GROUP_SHRT_NM_MATCH
+            schema: any
+            mandatory: false
+          SCTR_CD:
+            external: SCTR_CD
+            schema: any
+            mandatory: false
+          ORG_TYPE_CD:
+            external: ORG_TYPE_CD
+            schema: any
+            mandatory: false
+          TAX_ID:
+            external: TAX_ID
+            schema: any
+            mandatory: false
+          BSNSS_DESCP:
+            external: BSNSS_DESCP
+            schema: any
+            mandatory: false
+          OTHR_EMPLYR_QTY:
+            external: OTHR_EMPLYR_QTY
+            schema: any
+            mandatory: false
+          OTHR_EMPLYR_NBR_LAST_SEQ:
+            external: OTHR_EMPLYR_NBR_LAST_SEQ
+            schema: any
+            mandatory: false
+          ADDRSS_NBR_LAST_SEQ:
+            external: ADDRSS_NBR_LAST_SEQ
+            schema: any
+            mandatory: false
+          INTL_ADD_DT:
+            external: INTL_ADD_DT
+            schema: any
+            mandatory: false
+          INTL_ADD_EE_ID:
+            external: INTL_ADD_EE_ID
+            schema: any
+            mandatory: false
+          LAST_UPDT_DT:
+            external: LAST_UPDT_DT
+            schema: any
+            mandatory: false
+          LAST_UPDT_EE_ID:
+            external: LAST_UPDT_EE_ID
+            schema: any
+            mandatory: false
+          FLEXINSURE_FLG:
+            external: FLEXINSURE_FLG
+            schema: any
+            mandatory: false
+          SEND_TO_CRM_FLG:
+            external: SEND_TO_CRM_FLG
+            schema: any
+            mandatory: false
+          SF_ACCOUNT_ID:
+            external: SF_ACCOUNT_ID
+            schema: any
+            mandatory: false
+      SyncDeleteMode:
+        parent: SyncDeleteMode
+        in:
+          interface:
+            schema: any
+          table:
+            const: null
+            external: table
+  Source:
+    actors:
+      Get Sync Source Data Indicator:
+        parent: InnerFlow
+        condition: value
+        in:
+          flowName:
+            const: GetSyncSourceDataIndicator
+        out:
+          value:
+            schema: boolean
+      Query:
+        parent: SourceDbQuery
+        in:
+          interface:
+            const: GTX
+          sql:
+            const: select * from GRP.GRP
+          parent_rows:
+            link: PopulationArgs/parent_rows
+        out:
+          result:
+            schema: '#ref'
+      Get SEQ_CACHE_INTERFACE:
+        parent: FabricSetRead
+        in:
+          key:
+            const: SEQ_CACHE_INTERFACE
+            default: false
+      Get MASKING_CACHE_TTL:
+        parent: FabricSetRead
+        in:
+          key:
+            const: MASKING_CACHE_TTL
+            default: false
+  Mask Data Based On Catalog:
+    actors:
+      Catalog Masking Mapper:
+        parent: CatalogMaskingMapper
+        in:
+          interface:
+            const: null
+            link: Get SEQ_CACHE_INTERFACE/result
+          mtable:
+            schema: any
+          dataPlatform:
+            const: GTX
+          schema:
+            const: GRP
+          dataset:
+            const: GRP
+          ttl:
+            link: Get MASKING_CACHE_TTL/result
+            schema: number
+            mandatory: false
+          values:
+            link: Query/result
+  LU Table:
+    last: 1
+    actors:
+      GRP:
+        parent: DbLoad
+        in:
+          interface:
+            const: fabric
+          schema:
+            const: null
+            external: schema
+          table:
+            const: null
+            external: table
+          fields:
+            const:
+            - CO_ID
+            - GROUP_ID
+            - GROUP_OFFC_CD
+            - PROQUOTE_CLIENT_ID
+            - LEGAL_NM
+            - GROUP_SHRT_NM
+            - GROUP_SHRT_NM_MATCH
+            - SCTR_CD
+            - ORG_TYPE_CD
+            - TAX_ID
+            - BSNSS_DESCP
+            - OTHR_EMPLYR_QTY
+            - OTHR_EMPLYR_NBR_LAST_SEQ
+            - ADDRSS_NBR_LAST_SEQ
+            - INTL_ADD_DT
+            - INTL_ADD_EE_ID
+            - LAST_UPDT_DT
+            - LAST_UPDT_EE_ID
+            - FLEXINSURE_FLG
+            - SEND_TO_CRM_FLG
+            - SF_ACCOUNT_ID
+          keys:
+            const:
+            - CO_ID
+            - GROUP_ID
+          dialect:
+            const: sqlite
+          CO_ID:
+            schema: any
+          GROUP_ID:
+            schema: any
+          GROUP_OFFC_CD:
+            schema: any
+          PROQUOTE_CLIENT_ID:
+            schema: any
+          LEGAL_NM:
+            schema: any
+          GROUP_SHRT_NM:
+            schema: any
+          GROUP_SHRT_NM_MATCH:
+            schema: any
+          SCTR_CD:
+            schema: any
+          ORG_TYPE_CD:
+            schema: any
+          TAX_ID:
+            schema: any
+          BSNSS_DESCP:
+            schema: any
+          OTHR_EMPLYR_QTY:
+            schema: any
+          OTHR_EMPLYR_NBR_LAST_SEQ:
+            schema: any
+          ADDRSS_NBR_LAST_SEQ:
+            schema: any
+          INTL_ADD_DT:
+            schema: any
+          INTL_ADD_EE_ID:
+            schema: any
+          LAST_UPDT_DT:
+            schema: any
+          LAST_UPDT_EE_ID:
+            schema: any
+          FLEXINSURE_FLG:
+            schema: any
+          SEND_TO_CRM_FLG:
+            schema: any
+          SF_ACCOUNT_ID:
+            schema: any
+          params:
+            link:
+              path: Catalog Masking Mapper/values
+              iterate: Iterate
+  Post Load: {
+    }
+schemas:
+  Query.out.result:
+    type: object
+    properties:
+      CO_ID:
+        type: {
+          }
+      GROUP_ID:
+        type: {
+          }
+      GROUP_OFFC_CD:
+        type: {
+          }
+      PROQUOTE_CLIENT_ID:
+        type: {
+          }
+      LEGAL_NM:
+        type: {
+          }
+      GROUP_SHRT_NM:
+        type: {
+          }
+      GROUP_SHRT_NM_MATCH:
+        type: {
+          }
+      SCTR_CD:
+        type: {
+          }
+      ORG_TYPE_CD:
+        type: {
+          }
+      TAX_ID:
+        type: {
+          }
+      BSNSS_DESCP:
+        type: {
+          }
+      OTHR_EMPLYR_QTY:
+        type: {
+          }
+      OTHR_EMPLYR_NBR_LAST_SEQ:
+        type: {
+          }
+      ADDRSS_NBR_LAST_SEQ:
+        type: {
+          }
+      INTL_ADD_DT:
+        type: {
+          }
+      INTL_ADD_EE_ID:
+        type: {
+          }
+      LAST_UPDT_DT:
+        type: {
+          }
+      LAST_UPDT_EE_ID:
+        type: {
+          }
+      FLEXINSURE_FLG:
+        type: {
+          }
+      SEND_TO_CRM_FLG:
+        type: {
+          }
+      SF_ACCOUNT_ID:
+        type: {
+          }

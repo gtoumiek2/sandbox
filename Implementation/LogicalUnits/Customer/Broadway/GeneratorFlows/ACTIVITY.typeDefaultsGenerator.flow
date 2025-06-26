@@ -1,0 +1,205 @@
+{
+    "tags": [
+        "Generate Data",
+        "GeneratorFlows"
+    ],
+    "levels": [
+        {
+            "stages": [
+                {
+                    "name": "Set Outputs Based On Data Type",
+                    "dependsOnList": [],
+                    "isLast": 0,
+                    "actors": [
+                        
+                        {
+                            "name": "ACTIVITY_DATE",
+                            "actorType": {
+                                "parentType": "ConstDateTime",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "ACTIVITY_ID",
+                            "actorType": {
+                                "parentType": "RandomNumber",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "ACTIVITY_NOTE",
+                            "actorType": {
+                                "parentType": "RandomStringRegex",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                         } 
+						
+						
+                    ]
+                }
+            ]
+        },
+        {
+            "stages": [
+                {
+                    "name": "Build Maps",
+                    "dependsOnList": [],
+                    "isLast": 0,
+                    "actors": [
+                        
+                        {
+                            "name": "Build ACTIVITY_DATE Map",
+                            "actorType": {
+                                "parentType": "MapBuild",
+                                "inputs": [
+                                    {
+                                        "name": "key",
+                                        "schema": {
+                                            "type": "string"
+                                        },
+                                        "const": "ACTIVITY_DATE"
+                                    }
+                                ],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "Build ACTIVITY_ID Map",
+                            "actorType": {
+                                "parentType": "MapBuild",
+                                "inputs": [
+                                    {
+                                        "name": "key",
+                                        "schema": {
+                                            "type": "string"
+                                        },
+                                        "const": "ACTIVITY_ID"
+                                    }
+                                ],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "Build ACTIVITY_NOTE Map",
+                            "actorType": {
+                                "parentType": "MapBuild",
+                                "inputs": [
+                                    {
+                                        "name": "key",
+                                        "schema": {
+                                            "type": "string"
+                                        },
+                                        "const": "ACTIVITY_NOTE"
+                                    }
+                                ],
+                                "outputs": []
+                            }
+                         } 
+						
+						
+                    ]
+                }
+            ]
+        },
+        {
+            "stages": [
+                {
+                    "name": "Create One Record",
+                    "dependsOnList": [],
+                    "isLast": 0,
+                    "actors": [
+                        {
+                            "name": "Merge Maps",
+                            "actorType": {
+                                "parentType": "MapMerge",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "connections": [
+        
+        {
+            "leftPort": {
+                "actor": "ACTIVITY_DATE",
+                "name": "value"
+            },
+            "rightPort": {
+                "actor": "Build ACTIVITY_DATE Map",
+                "name": "value"
+            }
+        },
+        {
+            "leftPort": {
+                "actor": "Build ACTIVITY_DATE Map",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "Merge Maps",
+                "name": "maps"
+            },
+            "arrayPosition": 0
+        },
+        {
+            "leftPort": {
+                "actor": "ACTIVITY_ID",
+                "name": "value"
+            },
+            "rightPort": {
+                "actor": "Build ACTIVITY_ID Map",
+                "name": "value"
+            }
+        },
+        {
+            "leftPort": {
+                "actor": "Build ACTIVITY_ID Map",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "Merge Maps",
+                "name": "maps"
+            },
+            "arrayPosition": 1
+        },
+        {
+            "leftPort": {
+                "actor": "ACTIVITY_NOTE",
+                "name": "value"
+            },
+            "rightPort": {
+                "actor": "Build ACTIVITY_NOTE Map",
+                "name": "value"
+            }
+        },
+        {
+            "leftPort": {
+                "actor": "Build ACTIVITY_NOTE Map",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "Merge Maps",
+                "name": "maps"
+            },
+            "arrayPosition": 2
+        },
+        
+		
+        {
+            "leftPort": {
+                "actor": "Merge Maps",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "flowArgs",
+                "name": "value"
+            }
+        }
+    ]
+}

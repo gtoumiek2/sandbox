@@ -1,0 +1,112 @@
+stages:
+  Input:
+    actors:
+      PopulationArgs:
+        parent: PopulationArgs
+        readonly: true
+        in:
+          ACTIVITY_ID:
+            external: ACTIVITY_ID
+            schema: any
+            mandatory: false
+          CASE_ID:
+            external: CASE_ID
+            schema: any
+            mandatory: false
+          CASE_DATE:
+            external: CASE_DATE
+            schema: any
+            mandatory: false
+          CASE_TYPE:
+            external: CASE_TYPE
+            schema: any
+            mandatory: false
+          STATUS:
+            external: STATUS
+            schema: any
+            mandatory: false
+      SyncDeleteMode:
+        parent: SyncDeleteMode
+        in:
+          interface:
+            schema: any
+          table:
+            const: null
+            external: table
+  Source:
+    actors:
+      Query:
+        parent: SourceDbQuery
+        in:
+          interface:
+            const: CRM_DB
+          sql:
+            const: select * from main.CASES
+          parent_rows:
+            link: PopulationArgs/parent_rows
+        out:
+          result:
+            schema: '#ref'
+  Stage 1: {
+    }
+  LU Table:
+    last: 1
+    actors:
+      CASES:
+        parent: DbLoad
+        in:
+          interface:
+            const: fabric
+          schema:
+            const: null
+            external: schema
+          table:
+            const: null
+            external: table
+          fields:
+            const:
+            - ACTIVITY_ID
+            - CASE_ID
+            - CASE_DATE
+            - CASE_TYPE
+            - STATUS
+          keys:
+            const:
+            - CASE_ID
+          dialect:
+            const: sqlite
+          ACTIVITY_ID:
+            schema: any
+          CASE_ID:
+            schema: any
+          CASE_DATE:
+            schema: any
+          CASE_TYPE:
+            schema: any
+          STATUS:
+            schema: any
+          params:
+            link:
+              path: Query/result
+              iterate: Iterate
+  Post Load: {
+    }
+schemas:
+  Query.out.result:
+    type: object
+    properties:
+      ACTIVITY_ID:
+        type: {
+          }
+      CASE_ID:
+        type: {
+          }
+      CASE_DATE:
+        type: {
+          }
+      CASE_TYPE:
+        type: {
+          }
+      STATUS:
+        type: {
+          }

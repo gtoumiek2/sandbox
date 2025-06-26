@@ -15,8 +15,8 @@
     <UseSelectAsteriskInAutoCreatedQueries>true</UseSelectAsteriskInAutoCreatedQueries>
     <AutomaticMetadataLoading>false</AutomaticMetadataLoading>
     <OfflineMode>true</OfflineMode>
-    <DataBase>/opt/apps/fabric/workspace/project/project-resources/crm_db.db</DataBase>
     <DataSource></DataSource>
+    <DataBase>/opt/apps/fabric/workspace/project/project-resources/crm_db.db</DataBase>
     <UserId></UserId>
     <Password></Password>
     <Certificate></Certificate>

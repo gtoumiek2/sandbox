@@ -47,5 +47,8 @@
         <Property name="TestConnectionValidStatus">
             <Value></Value>
         </Property>
+        <Property name="Certificate">
+            <Value></Value>
+        </Property>
     </Properties>
 </GenericInterface>

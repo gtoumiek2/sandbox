@@ -1,0 +1,35 @@
+stages:
+  Stage 1:
+    actors:
+      Const1:
+        parent: Const
+        in:
+          value:
+            const: '217'
+            schema: string
+        out:
+          value:
+            schema: string
+  Stage 2:
+    actors:
+      Masking1:
+        parent: Masking
+        in:
+          maskingId:
+            const: CUSTOMER_ID_SEQ
+          interface:
+            const: POSTGRESQL_ADMIN
+          flowName:
+            const: cache_sequence
+          new_value:
+            schema: any
+            mandatory: false
+          value:
+            link: Const1/value
+        out:
+          value:
+            schema: string
+  Stage 3: {
+    }
+  Stage 4: {
+    }

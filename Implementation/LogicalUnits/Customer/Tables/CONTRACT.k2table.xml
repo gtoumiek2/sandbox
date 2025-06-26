@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>CONTRACT</Name>
+  <ID>tbl_CONTRACT</ID>
+  <Columns>
+    <Column name="CUSTOMER_ID" id="CUSTOMER_ID" index="0" datatype="REAL" />
+    <Column name="CONTRACT_ID" id="CONTRACT_ID" index="1" datatype="REAL" mandatory="true" />
+    <Column name="CONTRACT_REF_ID" id="CONTRACT_REF_ID" index="2" datatype="REAL" />
+    <Column name="ASSOCIATED_LINE" id="ASSOCIATED_LINE" index="3" datatype="TEXT" />
+    <Column name="CONTRACT_DESCRIPTION" id="CONTRACT_DESCRIPTION" index="4" datatype="TEXT" />
+    <Column name="FROM_DATE" id="FROM_DATE" index="5" datatype="DATETIME" />
+    <Column name="TO_DATE" id="TO_DATE" index="6" datatype="DATETIME" />
+    <Column name="ASSOCIATED_LINE_FMT" id="ASSOCIATED_LINE_FMT" index="7" datatype="TEXT" />
+  </Columns>
+  <IndexesList>
+    <Index id="1" pk="true" unique="true" instanceOnly="true" columnsIdsList="CONTRACT_ID" />
+  </IndexesList>
+  <EnrichmentList>
+  </EnrichmentList>
+  <LazyDataUpdate syncMethod="Inherited" performEvery="1.00:00:00">
+    <DecisionFunction></DecisionFunction>
+  </LazyDataUpdate>
+  <TriggersList>
+  </TriggersList>
+  <BasedOn>
+    <Source interface="CRM_DB" schema="main" table="CONTRACT" timestamp="2025-05-27">
+      <ColumnsList>CUSTOMER_ID,CONTRACT_ID,CONTRACT_REF_ID,ASSOCIATED_LINE,CONTRACT_DESCRIPTION,FROM_DATE,TO_DATE,ASSOCIATED_LINE_FMT</ColumnsList>
+    </Source>
+  </BasedOn>
+</TableObject>

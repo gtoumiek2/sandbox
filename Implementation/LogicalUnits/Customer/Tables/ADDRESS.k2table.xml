@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>ADDRESS</Name>
+  <ID>tbl_ADDRESS</ID>
+  <Columns>
+    <Column name="CUSTOMER_ID" id="CUSTOMER_ID" index="0" datatype="REAL" />
+    <Column name="ADDRESS_ID" id="ADDRESS_ID" index="1" datatype="REAL" mandatory="true" />
+    <Column name="STREET_ADDRESS_1" id="STREET_ADDRESS_1" index="2" datatype="TEXT" />
+    <Column name="STREET_ADDRESS_2" id="STREET_ADDRESS_2" index="3" datatype="TEXT" />
+    <Column name="CITY" id="CITY" index="4" datatype="TEXT" />
+    <Column name="ZIP" id="ZIP" index="5" datatype="TEXT" />
+    <Column name="STATE" id="STATE" index="6" datatype="TEXT" />
+    <Column name="COUNTRY" id="COUNTRY" index="7" datatype="TEXT" />
+  </Columns>
+  <IndexesList>
+    <Index id="1" pk="true" unique="true" instanceOnly="true" columnsIdsList="ADDRESS_ID" />
+  </IndexesList>
+  <EnrichmentList>
+  </EnrichmentList>
+  <LazyDataUpdate syncMethod="Inherited" performEvery="1.00:00:00">
+    <DecisionFunction></DecisionFunction>
+  </LazyDataUpdate>
+  <TriggersList>
+  </TriggersList>
+  <BasedOn>
+    <Source interface="CRM_DB" schema="main" table="ADDRESS" timestamp="2025-05-27">
+      <ColumnsList>CUSTOMER_ID,ADDRESS_ID,STREET_ADDRESS_1,STREET_ADDRESS_2,CITY,ZIP,STATE,COUNTRY</ColumnsList>
+    </Source>
+  </BasedOn>
+</TableObject>

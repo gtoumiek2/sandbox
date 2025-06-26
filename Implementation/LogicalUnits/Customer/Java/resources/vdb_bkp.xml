@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VirtualDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="">
+  <Name>vdb</Name>
+  <RootView>CUSTOMER</RootView>
+  <LuLazyDataUpdate syncMethod="None" performEvery="1.00:00:00">
+  	<DecisionFunction></DecisionFunction>
+  </LuLazyDataUpdate>
+  <EventsList>
+  </EventsList>
+  <IidFinderProp enabled="false">
+    <NumberOfPartitions>100</NumberOfPartitions>
+    <NumberOfJobs>50</NumberOfJobs>
+  </IidFinderProp>
+  <Tables>
+	 <Table>CUSTOMER</Table>
+	 <Table>CONTRACT</Table>
+	 <Table>ACTIVITY</Table>
+	 <Table>CASES</Table>
+	 <Table>CASE_NOTE</Table>
+	 <Table>ADDRESS</Table>
+  </Tables>
+  <TablesProperties>
+	 <TableProperties name="CUSTOMER">
+      <Populations>
+        <Population name="population.flow" order="1" disabled="false" populationType="FLOW" />
+      </Populations>
+    </TableProperties>
+	 <TableProperties name="CONTRACT">
+      <Populations>
+        <Population name="population.flow" order="2" disabled="false" populationType="FLOW" />
+      </Populations>
+    </TableProperties>
+	 <TableProperties name="ACTIVITY">
+      <Populations>
+        <Population name="population.flow" order="2" disabled="false" populationType="FLOW" />
+      </Populations>
+    </TableProperties>
+	 <TableProperties name="CASES">
+      <Populations>
+        <Population name="population.flow" order="3" disabled="false" populationType="FLOW" />
+      </Populations>
+    </TableProperties>
+	 <TableProperties name="CASE_NOTE">
+      <Populations>
+        <Population name="population.flow" order="4" disabled="false" populationType="FLOW" />
+      </Populations>
+    </TableProperties>
+	 <TableProperties name="ADDRESS">
+      <Populations>
+        <Population name="population.flow" order="2" disabled="false" populationType="FLOW" />
+      </Populations>
+    </TableProperties>
+  </TablesProperties>
+  <EnrichmentsOrderList>
+  </EnrichmentsOrderList>
+  <ReferencesList>
+  </ReferencesList>
+  <Relations />
+  <DatabaseRelations>
+	  <Relation>
+        <From tableType="TableObject" table="CUSTOMER" column="CUSTOMER_ID" columnId="CUSTOMER_ID" />
+        <To tableType="TableObject" table="CONTRACT" populationObjectName="population.flow" column="CUSTOMER_ID" columnId="CUSTOMER_ID" />
+      </Relation>
+	  <Relation>
+        <From tableType="TableObject" table="CUSTOMER" column="CUSTOMER_ID" columnId="CUSTOMER_ID" />
+        <To tableType="TableObject" table="ACTIVITY" populationObjectName="population.flow" column="CUSTOMER_ID" columnId="CUSTOMER_ID" />
+      </Relation>
+	  <Relation>
+        <From tableType="TableObject" table="ACTIVITY" column="ACTIVITY_ID" columnId="ACTIVITY_ID" />
+        <To tableType="TableObject" table="CASES" populationObjectName="population.flow" column="ACTIVITY_ID" columnId="ACTIVITY_ID" />
+      </Relation>
+	  <Relation>
+        <From tableType="TableObject" table="CASES" column="CASE_ID" columnId="CASE_ID" />
+        <To tableType="TableObject" table="CASE_NOTE" populationObjectName="population.flow" column="CASE_ID" columnId="CASE_ID" />
+      </Relation>
+	  <Relation>
+        <From tableType="TableObject" table="CUSTOMER" column="CUSTOMER_ID" columnId="CUSTOMER_ID" />
+        <To tableType="TableObject" table="ADDRESS" populationObjectName="population.flow" column="CUSTOMER_ID" columnId="CUSTOMER_ID" />
+      </Relation>
+  </DatabaseRelations>
+  <DiagramGraph>
+    <Graph name="vdb.k2vdb.xml">
+      <Node name="CUSTOMER" pos="119 306" viewType="Table" />
+      <Node name="CONTRACT" pos="505 81" viewType="Table" />
+      <Node name="ACTIVITY" pos="505 306" viewType="Table" />
+      <Node name="CASES" pos="889 356" viewType="Table" />
+      <Node name="CASE_NOTE" pos="1275 406" viewType="Table" />
+      <Node name="ADDRESS" pos="505 531" viewType="Table" />
+    </Graph>
+  </DiagramGraph>
+</VirtualDB>

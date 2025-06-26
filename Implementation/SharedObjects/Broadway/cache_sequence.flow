@@ -1,0 +1,21 @@
+stages:
+  Stage 1:
+    actors:
+      Const1:
+        parent: Const
+        in:
+          value:
+            const: null
+            external: value
+        out:
+          value:
+            schema: string
+      Const2:
+        parent: Const
+        in:
+          value:
+            const: null
+            external: new_value
+        out:
+          value:
+            external: value

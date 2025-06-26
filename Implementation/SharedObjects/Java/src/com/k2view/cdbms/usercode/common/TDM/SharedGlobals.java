@@ -96,6 +96,7 @@ public class SharedGlobals {
 
 	@category("TDM")
 	public static final String TDMDB_SCHEMA = "public";
+	//public static final String TDMDB_SCHEMA = "k2tdm_";
 	
 	@category("TDM")
 	public static String clone_id = "0";
@@ -173,7 +174,7 @@ public class SharedGlobals {
 	public static String REPLACE_SEQ_BY_LUI_SYNC = "false";
 
 	@category("TDM")
-	public static String TDM_USING_CATALOG_SEQUENCES = "false";
+	public static String TDM_USING_CATALOG_SEQUENCES = "true";
 
 	@category("TDM")
 	public static String CREATE_PHYSICAL_FK_IN_MDB_EXPORT_SCHEMA= "true";

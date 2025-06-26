@@ -2,12 +2,14 @@
 <DBConn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="DBConnGenericAdoJdbc" name="TDM" type="genericdb" version="8.2.0">
     <JdbcDriverName>PostgreSQL</JdbcDriverName>
     <Active>true</Active>
-    <DataSource>postgres-service</DataSource>
+
+    <DataSource>host.docker.internal</DataSource>
     <PortNum>5432</PortNum>
     <DataBase>TDMDB</DataBase>
     <UserId>postgres</UserId>
-    <Password>~encs2~s9RSfZbA1Kf2czkNRB30ut/8Kv5KXZ2osl6Dns2SFJ1YZUP0tMzBQw==</Password>
-    <ConnectionStringServerSide>jdbc:postgresql://postgres-service:5432/TDMDB?stringtype=unspecified</ConnectionStringServerSide>
+    <Password>~encs2~3nDJlg6Zu3Caok02kqqSaN046+Zy78hDn+ay+UMXid8PtxIn+L3ibw==</Password>
+    <ConnectionStringServerSide>jdbc:postgresql://host.docker.internal:5432/TDMDB?stringtype=unspecified</ConnectionStringServerSide>
+    <DataSource>postgres-service</DataSource>
     <MinConnectionsNumber>0</MinConnectionsNumber>
     <MaxConnectionsNumber>60</MaxConnectionsNumber>
     <SchemaFilter></SchemaFilter>

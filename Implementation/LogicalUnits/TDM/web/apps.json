@@ -38,7 +38,7 @@
    {
       "name": "Documentation",
       "appId": "doc",
-      "hidden": true
+      "hidden": false
    },
    {
       "name": "Simple History API Route",

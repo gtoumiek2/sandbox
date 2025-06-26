@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DBConn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="DBConnGenericAdoJdbc" name="TEST" type="genericdb" version="8.2.0">
+    <JdbcDriverName>Oracle</JdbcDriverName>
+    <Active>true</Active>
+    <ConnectionProperties>
+        <Property name="includeSynonyms">
+            <Value><![CDATA[true]]></Value>
+        </Property>
+    </ConnectionProperties>
+    <ConnectionStringServerSide>jdbc:oracle:thin:@host.docker.internal:1521/XE</ConnectionStringServerSide>
+    <PortNum>1521</PortNum>
+    <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+    <MinConnectionsNumber>0</MinConnectionsNumber>
+    <MaxConnectionsNumber>60</MaxConnectionsNumber>
+    <UseSelectAsteriskInAutoCreatedQueries>true</UseSelectAsteriskInAutoCreatedQueries>
+    <AutomaticMetadataLoading>false</AutomaticMetadataLoading>
+    <OfflineMode>true</OfflineMode>
+    <DataSource>host.docker.internal</DataSource>
+    <DataBase>XE</DataBase>
+    <UserId>system</UserId>
+    <Password>~encs2~dtCKwXSmxLUm4wPx3DMU1EAq9kpSx/hcbqo/LU9U387eUgB006Or</Password>
+    <Certificate></Certificate>
+    <SchemaFilter></SchemaFilter>
+    <CommandList></CommandList>
+</DBConn>

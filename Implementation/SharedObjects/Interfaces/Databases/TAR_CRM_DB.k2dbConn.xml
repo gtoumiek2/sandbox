@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DBConn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="DBConnGenericAdoJdbc" name="TAR_CRM_DB" type="genericdb" version="8.2.0">
+    <JdbcDriverName>SQLite</JdbcDriverName>
+    <Active>true</Active>
+    <ConnectionProperties>
+        <Property name="schema">
+            <Value><![CDATA[]]></Value>
+        </Property>
+    </ConnectionProperties>
+    <ConnectionStringServerSide>jdbc:sqlite:/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</ConnectionStringServerSide>
+    <PortNum></PortNum>
+    <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+    <MinConnectionsNumber>0</MinConnectionsNumber>
+    <MaxConnectionsNumber>60</MaxConnectionsNumber>
+    <UseSelectAsteriskInAutoCreatedQueries>true</UseSelectAsteriskInAutoCreatedQueries>
+    <AutomaticMetadataLoading>false</AutomaticMetadataLoading>
+    <OfflineMode>true</OfflineMode>
+    <DataSource></DataSource>
+    <DataBase>/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</DataBase>
+    <UserId></UserId>
+    <Password></Password>
+    <Certificate></Certificate>
+    <SchemaFilter></SchemaFilter>
+    <CommandList></CommandList>
+</DBConn>

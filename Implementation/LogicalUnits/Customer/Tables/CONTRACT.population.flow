@@ -1,0 +1,142 @@
+stages:
+  Input:
+    actors:
+      PopulationArgs:
+        parent: PopulationArgs
+        readonly: true
+        in:
+          CUSTOMER_ID:
+            external: CUSTOMER_ID
+            schema: any
+            mandatory: false
+          CONTRACT_ID:
+            external: CONTRACT_ID
+            schema: any
+            mandatory: false
+          CONTRACT_REF_ID:
+            external: CONTRACT_REF_ID
+            schema: any
+            mandatory: false
+          ASSOCIATED_LINE:
+            external: ASSOCIATED_LINE
+            schema: any
+            mandatory: false
+          CONTRACT_DESCRIPTION:
+            external: CONTRACT_DESCRIPTION
+            schema: any
+            mandatory: false
+          FROM_DATE:
+            external: FROM_DATE
+            schema: any
+            mandatory: false
+          TO_DATE:
+            external: TO_DATE
+            schema: any
+            mandatory: false
+          ASSOCIATED_LINE_FMT:
+            external: ASSOCIATED_LINE_FMT
+            schema: any
+            mandatory: false
+      SyncDeleteMode:
+        parent: SyncDeleteMode
+        in:
+          interface:
+            schema: any
+          table:
+            const: null
+            external: table
+  Source:
+    actors:
+      Query:
+        parent: SourceDbQuery
+        in:
+          interface:
+            const: CRM_DB
+          sql:
+            const: select * from main.CONTRACT
+          parent_rows:
+            link: PopulationArgs/parent_rows
+        out:
+          result:
+            schema: '#ref'
+  Stage 1: {
+    }
+  LU Table:
+    last: 1
+    actors:
+      CONTRACT:
+        parent: DbLoad
+        in:
+          interface:
+            const: fabric
+          schema:
+            const: null
+            external: schema
+          table:
+            const: null
+            external: table
+          fields:
+            const:
+            - CUSTOMER_ID
+            - CONTRACT_ID
+            - CONTRACT_REF_ID
+            - ASSOCIATED_LINE
+            - CONTRACT_DESCRIPTION
+            - FROM_DATE
+            - TO_DATE
+            - ASSOCIATED_LINE_FMT
+          keys:
+            const:
+            - CONTRACT_ID
+          dialect:
+            const: sqlite
+          CUSTOMER_ID:
+            schema: any
+          CONTRACT_ID:
+            schema: any
+          CONTRACT_REF_ID:
+            schema: any
+          ASSOCIATED_LINE:
+            schema: any
+          CONTRACT_DESCRIPTION:
+            schema: any
+          FROM_DATE:
+            schema: any
+          TO_DATE:
+            schema: any
+          ASSOCIATED_LINE_FMT:
+            schema: any
+          params:
+            link:
+              path: Query/result
+              iterate: Iterate
+  Post Load: {
+    }
+schemas:
+  Query.out.result:
+    type: object
+    properties:
+      CUSTOMER_ID:
+        type: {
+          }
+      CONTRACT_ID:
+        type: {
+          }
+      CONTRACT_REF_ID:
+        type: {
+          }
+      ASSOCIATED_LINE:
+        type: {
+          }
+      CONTRACT_DESCRIPTION:
+        type: {
+          }
+      FROM_DATE:
+        type: {
+          }
+      TO_DATE:
+        type: {
+          }
+      ASSOCIATED_LINE_FMT:
+        type: {
+          }

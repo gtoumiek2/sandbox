@@ -1,0 +1,250 @@
+{
+    "tags": [
+        "Generate Data",
+        "GeneratorFlows"
+    ],
+    "levels": [
+        {
+            "stages": [
+                {
+                    "name": "Set Outputs Based On Data Type",
+                    "dependsOnList": [],
+                    "isLast": 0,
+                    "actors": [
+                        
+                        {
+                            "name": "CASE_TYPE",
+                            "actorType": {
+                                "parentType": "RandomStringRegex",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "STATUS",
+                            "actorType": {
+                                "parentType": "RandomStringRegex",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "CASE_ID",
+                            "actorType": {
+                                "parentType": "RandomNumber",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "CASE_DATE",
+                            "actorType": {
+                                "parentType": "ConstDateTime",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                         } 
+						
+						
+                    ]
+                }
+            ]
+        },
+        {
+            "stages": [
+                {
+                    "name": "Build Maps",
+                    "dependsOnList": [],
+                    "isLast": 0,
+                    "actors": [
+                        
+                        {
+                            "name": "Build CASE_TYPE Map",
+                            "actorType": {
+                                "parentType": "MapBuild",
+                                "inputs": [
+                                    {
+                                        "name": "key",
+                                        "schema": {
+                                            "type": "string"
+                                        },
+                                        "const": "CASE_TYPE"
+                                    }
+                                ],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "Build STATUS Map",
+                            "actorType": {
+                                "parentType": "MapBuild",
+                                "inputs": [
+                                    {
+                                        "name": "key",
+                                        "schema": {
+                                            "type": "string"
+                                        },
+                                        "const": "STATUS"
+                                    }
+                                ],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "Build CASE_ID Map",
+                            "actorType": {
+                                "parentType": "MapBuild",
+                                "inputs": [
+                                    {
+                                        "name": "key",
+                                        "schema": {
+                                            "type": "string"
+                                        },
+                                        "const": "CASE_ID"
+                                    }
+                                ],
+                                "outputs": []
+                            }
+                         }, 
+						{
+                            "name": "Build CASE_DATE Map",
+                            "actorType": {
+                                "parentType": "MapBuild",
+                                "inputs": [
+                                    {
+                                        "name": "key",
+                                        "schema": {
+                                            "type": "string"
+                                        },
+                                        "const": "CASE_DATE"
+                                    }
+                                ],
+                                "outputs": []
+                            }
+                         } 
+						
+						
+                    ]
+                }
+            ]
+        },
+        {
+            "stages": [
+                {
+                    "name": "Create One Record",
+                    "dependsOnList": [],
+                    "isLast": 0,
+                    "actors": [
+                        {
+                            "name": "Merge Maps",
+                            "actorType": {
+                                "parentType": "MapMerge",
+                                "inputs": [],
+                                "outputs": []
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "connections": [
+        
+        {
+            "leftPort": {
+                "actor": "CASE_TYPE",
+                "name": "value"
+            },
+            "rightPort": {
+                "actor": "Build CASE_TYPE Map",
+                "name": "value"
+            }
+        },
+        {
+            "leftPort": {
+                "actor": "Build CASE_TYPE Map",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "Merge Maps",
+                "name": "maps"
+            },
+            "arrayPosition": 0
+        },
+        {
+            "leftPort": {
+                "actor": "STATUS",
+                "name": "value"
+            },
+            "rightPort": {
+                "actor": "Build STATUS Map",
+                "name": "value"
+            }
+        },
+        {
+            "leftPort": {
+                "actor": "Build STATUS Map",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "Merge Maps",
+                "name": "maps"
+            },
+            "arrayPosition": 1
+        },
+        {
+            "leftPort": {
+                "actor": "CASE_ID",
+                "name": "value"
+            },
+            "rightPort": {
+                "actor": "Build CASE_ID Map",
+                "name": "value"
+            }
+        },
+        {
+            "leftPort": {
+                "actor": "Build CASE_ID Map",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "Merge Maps",
+                "name": "maps"
+            },
+            "arrayPosition": 2
+        },
+        {
+            "leftPort": {
+                "actor": "CASE_DATE",
+                "name": "value"
+            },
+            "rightPort": {
+                "actor": "Build CASE_DATE Map",
+                "name": "value"
+            }
+        },
+        {
+            "leftPort": {
+                "actor": "Build CASE_DATE Map",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "Merge Maps",
+                "name": "maps"
+            },
+            "arrayPosition": 3
+        },
+        
+		
+        {
+            "leftPort": {
+                "actor": "Merge Maps",
+                "name": "map"
+            },
+            "rightPort": {
+                "actor": "flowArgs",
+                "name": "value"
+            }
+        }
+    ]
+}

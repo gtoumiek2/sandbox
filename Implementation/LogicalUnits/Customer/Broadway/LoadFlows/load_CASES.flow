@@ -1,0 +1,204 @@
+tags: LoadFlows
+stages:
+  Description:
+    remark: |-
+      This flow demonstrates the following:
+      1. A table flow with field transformations:
+        a. Changing the sequential value of a field
+      2. Supporting sequence replacement:
+        a. Regular sequence replacement
+        b. Sequence Caching - when a value was already replaced at a previous stage/actor, the new value will be taken from cache.
+    transactional: false
+  Initiate:
+    transactional: false
+    actors:
+      Initiate TDM Load:
+        parent: InitiateTDMLoad_Actor
+        in:
+          iid:
+            external: iid
+          luName:
+            external: luName
+          syncMode:
+            external: syncMode
+  Get Fabric Table Data:
+    transactional: false
+    actors:
+      Get Table Data:
+        parent: DbCommand
+        in:
+          interface:
+            const: fabric
+          sql:
+            const: select * from Customer.CASES
+        out:
+          result:
+            schema: '#ref'
+  Pre Transformation:
+    remark: |-
+      Activities before doing special fields mapping.
+      For Example,in case of population depended sequence, set the Sequence Name based on the Population ID field from Fabric table
+  Transformation:
+    remark: "Transformation of special fields. Fields that need to be changed/replaced\
+      \ before loading to target table. \nFor example, replace sequence or masking\
+      \ the field's value"
+    actors:
+      Transformation Error Handler:
+        parent: ErrorHandler
+        error: result
+        in:
+          config:
+            const:
+            - exceptionKey: java.lang.Exception
+              conditions:
+                message: ''
+              actions:
+                suppress: false
+                log: false
+                flowName: PopulateTableErrorsWithFailed
+      Handle Mask And Sequential Fields:
+        parent: InnerFlow
+        in:
+          flowName:
+            const: HandleMaskAndSeqFields
+          luName:
+            const: Customer
+            schema: string
+            editor:
+              id: com.k2view.logicalUnit
+              addEmptyEntry: true
+            mandatory: false
+          tableName:
+            const: CASES
+            schema: string
+            mandatory: false
+          dataPlatform:
+            const: TAR_CRM_DB
+            schema: string
+            editor:
+              id: com.k2view.mTableKey
+            mandatory: false
+          schema:
+            const: main
+            schema: string
+            editor:
+              id: com.k2view.mTableKey
+            mandatory: false
+          row:
+            link:
+              path: Get Table Data/result
+              iterate: Iterate
+            schema: '#ref'
+            mandatory: false
+        out:
+          result:
+            schema: '#ref'
+  Load Data To Target:
+    actors:
+      Error Handler:
+        parent: ErrorHandler
+        error: result
+        in:
+          config:
+            const:
+            - exceptionKey: java.lang.Exception
+              conditions:
+                message: ''
+              actions:
+                suppress: false
+                log: true
+                flowName: PopulateTableErrorsWithFailed
+      
+      Load CASES Table:
+        parent: DbLoad
+        in:
+          interface:
+            const: TAR_CRM_DB
+          schema:
+            const: main
+          table:
+            const: CASES
+          fields:
+            const:
+            - CASE_TYPE
+            - STATUS
+            - CASE_ID
+            - ACTIVITY_ID
+            - CASE_DATE
+            
+          keys:
+            const:
+             - CASE_ID
+          
+          CASE_TYPE:
+            schema: any
+          STATUS:
+            schema: any
+          CASE_ID:
+            schema: any
+          ACTIVITY_ID:
+            schema: any
+          CASE_DATE:
+            schema: any
+          params:
+            link: Handle Mask And Sequential Fields/result
+  Post Record Loading:
+    last: 1
+  Get Statistics:
+    actors:
+      Read Stats:
+        parent: StatsReader
+  Report Statistics:
+    actors:
+      Load Stats To TDM Table:
+        parent: StatsLoader
+        in:
+          stats:
+            link: Read Stats/flow
+  Post Table Loading: {
+    }
+schemas:
+  Get Table Data.out.result:
+    type: array
+    items:
+      type: object
+      properties:
+        
+        ACTIVITY_ID:
+           type: Any
+        CASE_ID:
+           type: Any
+        CASE_DATE:
+           type: Any
+        CASE_TYPE:
+           type: Any
+        STATUS:
+           type: Any
+  Handle Mask And Sequential Fields.in.row:
+    type: object
+    properties:
+       
+        ACTIVITY_ID:
+           type: Any
+        CASE_ID:
+           type: Any
+        CASE_DATE:
+           type: Any
+        CASE_TYPE:
+           type: Any
+        STATUS:
+           type: Any
+  Handle Mask And Sequential Fields.out.result:
+    type: object
+    properties:
+       
+        ACTIVITY_ID:
+           type: Any
+        CASE_ID:
+           type: Any
+        CASE_DATE:
+           type: Any
+        CASE_TYPE:
+           type: Any
+        STATUS:
+           type: Any

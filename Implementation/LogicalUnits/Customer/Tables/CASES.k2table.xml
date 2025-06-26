@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>CASES</Name>
+  <ID>tbl_CASES</ID>
+  <Columns>
+    <Column name="ACTIVITY_ID" id="ACTIVITY_ID" index="0" datatype="REAL" />
+    <Column name="CASE_ID" id="CASE_ID" index="1" datatype="REAL" mandatory="true" />
+    <Column name="CASE_DATE" id="CASE_DATE" index="2" datatype="DATETIME" />
+    <Column name="CASE_TYPE" id="CASE_TYPE" index="3" datatype="TEXT" />
+    <Column name="STATUS" id="STATUS" index="4" datatype="TEXT" />
+  </Columns>
+  <IndexesList>
+    <Index id="1" pk="true" unique="true" instanceOnly="true" columnsIdsList="CASE_ID" />
+  </IndexesList>
+  <EnrichmentList>
+  </EnrichmentList>
+  <LazyDataUpdate syncMethod="Inherited" performEvery="1.00:00:00">
+    <DecisionFunction></DecisionFunction>
+  </LazyDataUpdate>
+  <TriggersList>
+  </TriggersList>
+  <BasedOn>
+    <Source interface="CRM_DB" schema="main" table="CASES" timestamp="2025-05-27">
+      <ColumnsList>ACTIVITY_ID,CASE_ID,CASE_DATE,CASE_TYPE,STATUS</ColumnsList>
+    </Source>
+  </BasedOn>
+</TableObject>

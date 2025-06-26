@@ -1,0 +1,102 @@
+stages:
+  Input:
+    actors:
+      PopulationArgs:
+        parent: PopulationArgs
+        readonly: true
+        in:
+          CUSTOMER_ID:
+            external: CUSTOMER_ID
+            schema: any
+            mandatory: false
+          ACTIVITY_ID:
+            external: ACTIVITY_ID
+            schema: any
+            mandatory: false
+          ACTIVITY_DATE:
+            external: ACTIVITY_DATE
+            schema: any
+            mandatory: false
+          ACTIVITY_NOTE:
+            external: ACTIVITY_NOTE
+            schema: any
+            mandatory: false
+      SyncDeleteMode:
+        parent: SyncDeleteMode
+        in:
+          interface:
+            schema: any
+          table:
+            const: null
+            external: table
+  Source:
+    actors:
+      Query:
+        parent: SourceDbQuery
+        in:
+          interface:
+            const: CRM_DB
+          sql:
+            const: select * from main.ACTIVITY
+          parent_rows:
+            link: PopulationArgs/parent_rows
+        out:
+          result:
+            schema: '#ref'
+  Stage 1: {
+    }
+  LU Table:
+    last: 1
+    actors:
+      ACTIVITY:
+        parent: DbLoad
+        in:
+          interface:
+            const: fabric
+          schema:
+            const: null
+            external: schema
+          table:
+            const: null
+            external: table
+          fields:
+            const:
+            - CUSTOMER_ID
+            - ACTIVITY_ID
+            - ACTIVITY_DATE
+            - ACTIVITY_NOTE
+          keys:
+            const:
+            - ACTIVITY_ID
+          dialect:
+            const: sqlite
+          CUSTOMER_ID:
+            schema: any
+          ACTIVITY_ID:
+            schema: any
+          ACTIVITY_DATE:
+            schema: any
+          ACTIVITY_NOTE:
+            schema: any
+          params:
+            link:
+              path: Query/result
+              iterate: Iterate
+  Post Load: {
+    }
+schemas:
+  Query.out.result:
+    type: object
+    properties:
+      CUSTOMER_ID:
+        type: {
+          }
+      ACTIVITY_ID:
+        type: {
+          }
+      ACTIVITY_DATE:
+        type: {
+          }
+      ACTIVITY_NOTE:
+        type: {
+          }

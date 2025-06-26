@@ -2,10 +2,10 @@
 <FabEnvironmentsManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Environments</Name>
   <EnvironmentsList>
-    <Environment enabled="true" name="Prod">
+    <Environment enabled="true" name="SYS">
       <Comments></Comments>
       <DbInterfacesList>
-        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="AI_DB" dbType="genericdb" active="true">
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="AI_DB" dbType="genericdb" active="false">
           <dbHost></dbHost>
           <dbPort>5432</dbPort>
           <dbScheme></dbScheme>
@@ -30,27 +30,51 @@
           <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
         </DbInterface>
         <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="POSTGRESQL_ADMIN" dbType="genericdb" active="true">
-          <dbHost></dbHost>
+          <dbHost>host.docker.internal</dbHost>
           <dbPort>5432</dbPort>
           <dbScheme>postgres</dbScheme>
-          <dbUser></dbUser>
-          <dbPasswordEncrypted></dbPasswordEncrypted>
-          <connString>jdbc:postgresql://:5432/postgres?stringtype&#x3D;unspecified</connString>
+          <dbUser>postgres</dbUser>
+          <dbPasswordEncrypted>~encs2~Ss7bicQrje3h9rLqxhzoCrixqK7hc9Nt2xxvlgcccITMnT15CyqzlQ&#x3D;&#x3D;</dbPasswordEncrypted>
+          <connString>jdbc:postgresql://host.docker.internal:5432/postgres?stringtype&#x3D;unspecified</connString>
           <minConnectionsNumber>0</minConnectionsNumber>
           <maxConnectionsNumber>60</maxConnectionsNumber>
           <JdbcDriverName>PostgreSQL</JdbcDriverName>
           <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
         </DbInterface>
-        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TDM" dbType="genericdb" active="true">
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TAR_CRM_DB" dbType="genericdb" active="true">
           <dbHost></dbHost>
-          <dbPort>5432</dbPort>
-          <dbScheme>TDMDB</dbScheme>
+          <dbPort></dbPort>
+          <dbScheme>/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</dbScheme>
           <dbUser></dbUser>
           <dbPasswordEncrypted></dbPasswordEncrypted>
-          <connString>jdbc:postgresql://:5432/TDMDB?stringtype&#x3D;unspecified</connString>
+          <connString>jdbc:sqlite:/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>SQLite</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TDM" dbType="genericdb" active="true">
+          <dbHost>host.docker.internal</dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme>TDMDB</dbScheme>
+          <dbUser>postgres</dbUser>
+          <dbPasswordEncrypted>~encs2~bO3F5kblXyGbJIXO8aE8KGoelGKLm/vG/pmt24pHD9BzGbXuVoLWbg&#x3D;&#x3D;</dbPasswordEncrypted>
+          <connString>jdbc:postgresql://host.docker.internal:5432/TDMDB?stringtype&#x3D;unspecified</connString>
           <minConnectionsNumber>0</minConnectionsNumber>
           <maxConnectionsNumber>60</maxConnectionsNumber>
           <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TEST" dbType="genericdb" active="true">
+          <dbHost>host.docker.internal</dbHost>
+          <dbPort>1521</dbPort>
+          <dbScheme>XE</dbScheme>
+          <dbUser>system</dbUser>
+          <dbPasswordEncrypted>~encs2~6/lw5UuT+yfGp1qyGkBAr66FGgdW1J+qYg/DRuMBVUBFMCFdD4je</dbPasswordEncrypted>
+          <connString>jdbc:oracle:thin:@host.docker.internal:1521/XE</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>Oracle</JdbcDriverName>
           <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
         </DbInterface>
       </DbInterfacesList>
@@ -256,7 +280,7 @@
           <Comment></Comment>
         </Global>
         <Global name="TDM_USING_CATALOG_SEQUENCES" luName="">
-          <Value>false</Value>
+          <Value>true</Value>
           <Comment></Comment>
         </Global>
         <Global name="TDM_VERSION_TASK_EXECUTION_ID" luName="">
@@ -264,7 +288,7 @@
           <Comment></Comment>
         </Global>
         <Global name="TDMDB_SCHEMA" luName="">
-          <Value>public</Value>
+          <Value>k2tdm_</Value>
           <Comment></Comment>
         </Global>
         <Global name="UPDATE_MDB_EXPORTED_SCHEMA" luName="">
@@ -283,6 +307,30 @@
           <Value>admin</Value>
           <Comment></Comment>
         </Global>
+        <Global name="INSTANCES_RANDOM_MAX" luName="TDM">
+          <Value>10</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="INSTANCES_RANDOM_MIN" luName="TDM">
+          <Value>1</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SYNTHETIC_INDICATOR" luName="TDM">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TARGET_TDM_VERSION" luName="TDM">
+          <Value>9.3.1</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_DEBUG_MODE" luName="TDM">
+          <Value>true</Value>
+          <Comment>This flag is used to enble running sync in Studio</Comment>
+        </Global>
+        <Global name="TDM_DEPLOY_ENVIRONMENTS" luName="TDM">
+          <Value>true</Value>
+          <Comment></Comment>
+        </Global>
         <Global name="ROOT_COLUMN_NAME" luName="TDM_LIBRARY">
           <Value></Value>
           <Comment>The column name of the entity id. The name and the order of the root column name must be aligned with root_table_name. For example- if you populate two tables in root_Table_name (separated by a comma), you must populate also two values in this global where the first column referes to the first table name the second column refers to the second table name</Comment>
@@ -297,7 +345,7 @@
         </Global>
       </GlobalsList>
       <GenericInterfacesList>
-        <GenericInterface type="CUSTOM" enabled="true" version="">
+        <GenericInterface type="CUSTOM" enabled="false" version="">
           <Name>AI_DB_External</Name>
           <Properties>
             <Property name="Host">
@@ -378,10 +426,10 @@
         </GenericInterface>
       </GenericInterfacesList>
     </Environment>
-    <Environment enabled="true" name="dev">
+    <Environment enabled="true" name="DEV">
       <Comments></Comments>
       <DbInterfacesList>
-        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="AI_DB" dbType="genericdb" active="true">
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="AI_DB" dbType="genericdb" active="false">
           <dbHost></dbHost>
           <dbPort>5432</dbPort>
           <dbScheme></dbScheme>
@@ -396,37 +444,61 @@
         <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="CRM_DB" dbType="genericdb" active="true">
           <dbHost></dbHost>
           <dbPort></dbPort>
-          <dbScheme>/opt/apps/fabric/workspace/project/project-resources/crm_db.db</dbScheme>
+          <dbScheme>/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</dbScheme>
           <dbUser></dbUser>
           <dbPasswordEncrypted></dbPasswordEncrypted>
-          <connString>jdbc:sqlite:/opt/apps/fabric/workspace/project/project-resources/crm_db.db</connString>
+          <connString>jdbc:sqlite:/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</connString>
           <minConnectionsNumber>0</minConnectionsNumber>
           <maxConnectionsNumber>60</maxConnectionsNumber>
           <JdbcDriverName>SQLite</JdbcDriverName>
           <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
         </DbInterface>
         <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="POSTGRESQL_ADMIN" dbType="genericdb" active="true">
-          <dbHost></dbHost>
+          <dbHost>host.docker.internal</dbHost>
           <dbPort>5432</dbPort>
           <dbScheme>postgres</dbScheme>
-          <dbUser></dbUser>
-          <dbPasswordEncrypted></dbPasswordEncrypted>
-          <connString>jdbc:postgresql://:5432/postgres?stringtype&#x3D;unspecified</connString>
+          <dbUser>postgres</dbUser>
+          <dbPasswordEncrypted>~encs2~hozjoBPoDWDcFkoPG8cYHODA4WDNi64vmNqsYrkE1NisE84IgFEpFw&#x3D;&#x3D;</dbPasswordEncrypted>
+          <connString>jdbc:postgresql://host.docker.internal:5432/postgres?stringtype&#x3D;unspecified</connString>
           <minConnectionsNumber>0</minConnectionsNumber>
           <maxConnectionsNumber>60</maxConnectionsNumber>
           <JdbcDriverName>PostgreSQL</JdbcDriverName>
           <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
         </DbInterface>
-        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TDM" dbType="genericdb" active="true">
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TAR_CRM_DB" dbType="genericdb" active="true">
           <dbHost></dbHost>
-          <dbPort>5432</dbPort>
-          <dbScheme>TDMDB</dbScheme>
+          <dbPort></dbPort>
+          <dbScheme>/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</dbScheme>
           <dbUser></dbUser>
           <dbPasswordEncrypted></dbPasswordEncrypted>
-          <connString>jdbc:postgresql://:5432/TDMDB?stringtype&#x3D;unspecified</connString>
+          <connString>jdbc:sqlite:/opt/apps/fabric/workspace/project/project-resources/tar_crm_db.db</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>SQLite</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TDM" dbType="genericdb" active="true">
+          <dbHost>host.docker.internal</dbHost>
+          <dbPort>5432</dbPort>
+          <dbScheme>TDMDB</dbScheme>
+          <dbUser>postgres</dbUser>
+          <dbPasswordEncrypted>~encs2~ea+KWo5for1XT8AXcrl/bqApwpwfuFqMteqZwLgcIx3hUZZ7actN8g&#x3D;&#x3D;</dbPasswordEncrypted>
+          <connString>jdbc:postgresql://host.docker.internal:5432/TDMDB?stringtype&#x3D;unspecified</connString>
           <minConnectionsNumber>0</minConnectionsNumber>
           <maxConnectionsNumber>60</maxConnectionsNumber>
           <JdbcDriverName>PostgreSQL</JdbcDriverName>
+          <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
+        </DbInterface>
+        <DbInterface xsi:type="DBSourceGenericDb" k2StudioObjectName="TEST" dbType="genericdb" active="false">
+          <dbHost></dbHost>
+          <dbPort>1521</dbPort>
+          <dbScheme>XE</dbScheme>
+          <dbUser></dbUser>
+          <dbPasswordEncrypted></dbPasswordEncrypted>
+          <connString>jdbc:oracle:thin:@:1521/XE</connString>
+          <minConnectionsNumber>0</minConnectionsNumber>
+          <maxConnectionsNumber>60</maxConnectionsNumber>
+          <JdbcDriverName>Oracle</JdbcDriverName>
           <IsCustomConnectionStringServerSide>false</IsCustomConnectionStringServerSide>
         </DbInterface>
       </DbInterfacesList>
@@ -632,7 +704,7 @@
           <Comment></Comment>
         </Global>
         <Global name="TDM_USING_CATALOG_SEQUENCES" luName="">
-          <Value>false</Value>
+          <Value>true</Value>
           <Comment></Comment>
         </Global>
         <Global name="TDM_VERSION_TASK_EXECUTION_ID" luName="">
@@ -640,7 +712,7 @@
           <Comment></Comment>
         </Global>
         <Global name="TDMDB_SCHEMA" luName="">
-          <Value>public</Value>
+          <Value>k2tdm_</Value>
           <Comment></Comment>
         </Global>
         <Global name="UPDATE_MDB_EXPORTED_SCHEMA" luName="">
@@ -657,6 +729,30 @@
         </Global>
         <Global name="USER_PERMISSION_GROUP" luName="">
           <Value>admin</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="INSTANCES_RANDOM_MAX" luName="TDM">
+          <Value>10</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="INSTANCES_RANDOM_MIN" luName="TDM">
+          <Value>1</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="SYNTHETIC_INDICATOR" luName="TDM">
+          <Value>false</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TARGET_TDM_VERSION" luName="TDM">
+          <Value>9.3.1</Value>
+          <Comment></Comment>
+        </Global>
+        <Global name="TDM_DEBUG_MODE" luName="TDM">
+          <Value>true</Value>
+          <Comment>This flag is used to enble running sync in Studio</Comment>
+        </Global>
+        <Global name="TDM_DEPLOY_ENVIRONMENTS" luName="TDM">
+          <Value>true</Value>
           <Comment></Comment>
         </Global>
         <Global name="ROOT_COLUMN_NAME" luName="TDM_LIBRARY">

@@ -1,0 +1,51 @@
+stages:
+  Stage 1:
+    actors:
+      Const1:
+        parent: Const
+        in:
+          value:
+            const: '217'
+            schema: string
+        out:
+          value:
+            schema: string
+      new Const1:
+        parent: Const
+        in:
+          value:
+            const: 347
+            schema: integer
+        out:
+          value:
+            schema: integer
+  Stage 2:
+    actors:
+      Masking1:
+        parent: Masking
+        in:
+          maskingId:
+            const: CUSTOMER_ID_SEQ
+          interface:
+            const: POSTGRESQL_ADMIN
+          flowName:
+            const: cache_sequence
+            editor:
+              id: com.k2view.innerFlow
+              filterParams:
+              - seed
+              allowRemoveInputs: false
+              selectedCategory: all
+          new_value:
+            link: new Const1/value
+            schema: integer
+            mandatory: false
+          value:
+            link: Const1/value
+        out:
+          value:
+            schema: string
+  Stage 3: {
+    }
+  Stage 4: {
+    }
