@@ -95,8 +95,8 @@ public class SharedGlobals {
 	public static final String TDM_REF_UPD_SIZE = "1000";
 
 	@category("TDM")
-	public static final String TDMDB_SCHEMA = "public";
-	//public static final String TDMDB_SCHEMA = "k2tdm_";
+	// public static final String TDMDB_SCHEMA = "public";
+	public static final String TDMDB_SCHEMA = "k2tdm_";
 	
 	@category("TDM")
 	public static String clone_id = "0";

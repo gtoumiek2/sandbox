@@ -1,2 +1,18 @@
 ------Fabric is STOPPED
 +++++++Fabric is READY
+Force kill 333 ...
+
+Using config: /opt/apps/fabric/workspace/config/config.ini
+Using mode: DROP
+Using black list: []
+cluster id was not defined
+Dropping LU: Customer
+Dropping storage 'SYSTEM_DB' for LU 'k2system'
+Removing schema: k2audit
+Removing schema: k2auth
+Removing schema: k2batchprocess
+Removing schema: k2system
+Removing schema: k2_commons
+Deleting dir /opt/apps/fabric/workspace/storage/common
+Deleting dir /opt/apps/fabric/pod_tmp/fdb_cache
+Deleting dir /opt/apps/fabric/workspace/storage
