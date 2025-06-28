@@ -27,6 +27,19 @@ stages:
           value:
             const: AR
             schema: string
+      MTableShift3:
+        parent: MTableShift
+        in:
+          seed:
+            const: '2'
+          mtable:
+            const: shifter_mtable_multi_col
+          mtableKey:
+            const: value_num
+            schema: string
+          value:
+            const: AR
+            schema: string
   Stage 2: {
     }
   Stage 3: {
