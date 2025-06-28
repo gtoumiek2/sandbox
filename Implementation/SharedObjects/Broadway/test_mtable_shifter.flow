@@ -1,0 +1,22 @@
+stages:
+  Stage 1:
+    actors:
+      MTableShift1:
+        parent: MTableShift
+        in:
+          seed:
+            const: '7'
+          mtable:
+            const: shifter_mtable
+          mtableKey:
+            const: value
+            schema: string
+          value:
+            const: '1'
+            schema: string
+  Stage 2: {
+    }
+  Stage 3: {
+    }
+  Stage 4: {
+    }

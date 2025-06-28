@@ -1,0 +1,63 @@
+{
+    "type": "MTableShift",
+    "badge": "ts~",
+    "tags": [
+        "mtable"
+    ],
+    "doc": [
+        "MTables are in-memory local node data sets that can be used for quick value search and mapping.",
+        "The MTableShift actor can be used to shufle data using the mtable",
+        "To supply the key to the search, you can use additional actor parameters or pass the entire key map to mtableKey for an ad-hoc key.",
+        "If both mtableKey is supplied and actor params are populated, the params take precedence over they mtableKey.",
+        "If no key is supplied, a random row is picked out of the entire mtables data set.",
+        "Results of mtable rows can also be accessed with an output parameter with the name of the argument."
+    ],
+    "inputs": [
+        {
+            "const": true,
+            "name": "mtableShiftRow",
+            "schema": {},
+            "hidden": true
+        },
+        {
+            "name": "seed",
+            "schema": {
+                "type": "string"
+            },
+            "doc": [
+                "Seed controls the seed used for the row index. An empty value means the seed itself is random.",
+                "If the content of the mtable or the number of rows changes, the same seed might return a different row with different content."
+            ]
+        },
+        {
+            "name": "mtable",
+            "schema": {},
+            "editor": {
+                "id": "com.k2view.mTable"
+            },
+            "mandatory": false
+        },
+        {
+            "name": "mtableKey",
+            "schema": {},
+            "mandatory": false
+        },
+        {
+            "name": "value",
+            "schema": {},
+            "mandatory": false
+        }
+    ],
+    "outputs": [
+        {
+            "name": "result",
+            "schema": {
+                "type": "object"
+            },
+            "doc": [
+                "A single map randomly selected according to the supplied constraints. If no results, a null is returned."
+            ]
+        }
+    ],
+    "actorClass": "com.k2view.cdbms.usercode.common.MTableShift"
+}
